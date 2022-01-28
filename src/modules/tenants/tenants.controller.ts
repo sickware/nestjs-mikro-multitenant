@@ -10,4 +10,9 @@ export class TenantsController {
     getConnection(){
         return this.tenantService.getConnection();    
     }
+
+    @Get('/create')
+    createTenant(){
+        return this.tenantService.createEntity();
+    }
 }

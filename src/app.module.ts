@@ -9,9 +9,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 
 @Module({
   imports: [
-    MikroOrmModule.forRoot({
-      ...config
-    }),
+    MikroOrmModule.forRoot(),
     TenantsModule, 
     TenancyModule
   ],

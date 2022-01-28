@@ -13,7 +13,8 @@ const config : Options = {
     migrations : {
         path : 'dist/migrations',
         pathTs : Path.join( __dirname, './database/migrations'),
-        glob : '!(*.d).{js,ts}'
+        glob : '!(*.d).{js,ts}',
+        transactional : true,
     },
     seeder : {
         path : 'src/database/seeders',
