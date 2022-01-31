@@ -5,6 +5,7 @@ import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { MikroORM } from '@mikro-orm/core';
 import { getTenantConnection } from '../tenancy/tenancy.util';
 import configEmpresa from '../../mikro-orm.config.empresa';
+import configSucursal from '../../mikro-orm.config.sucursal';
 // import { Migration20220106200228 } from '../../database/migrations/Migration20220106200228';
 
 
@@ -25,14 +26,8 @@ export class TenantsService {
     }
 
     async createEntity(){
-        // await this.em.execute('CREATE SCHEMA IF NOT EXISTS schemaPrueba');
 
-        // const schemaGen = await this.or.getSchemaGenerator();
-
-        // const newSchema = await schemaGen.createSchema({ schema : 'public' });
-
-        // console.log( (await this.or.connect()).getConnection() );
-        
+        //Public
         const connectionManager = await this.or.connect();
         console.log(connectionManager.getConnection().getConnectionOptions());
 
@@ -41,7 +36,8 @@ export class TenantsService {
 
         await connectionManager.getConnection().close() 
 
-        
+
+        //Empresa    
         const or2 = await MikroORM.init({
             ...configEmpresa
         });
@@ -54,14 +50,19 @@ export class TenantsService {
 
         await connectionManager2.close();
 
+        //Sucursal
+        const or3 = await MikroORM.init({
+            ...configSucursal
+        });
 
-        // const migrator = await this.or.getMigrator();
-        // console.log(migrator);
-        // const migracion = await migrator.createMigration(); 
-        // const resp = await migrator.up('20220106200228');
+        const schemaGenSucursal = or3.getSchemaGenerator()
+
+        await schemaGenSucursal.createSchema({ schema : 'sucursal1' })
+
+        await or3.close();
+
+
         
-        // console.log(resp);
-        // await this.tenantRepository.createQueryBuilder().insert({ name : 'schemaPrueba'}).withSchema('schemaPrueba');
         return 'ok';
     }
 
