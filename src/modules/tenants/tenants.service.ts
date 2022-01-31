@@ -4,6 +4,7 @@ import { Tenant } from './../../database/models/public/tenant.entity';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { MikroORM } from '@mikro-orm/core';
 import { getTenantConnection } from '../tenancy/tenancy.util';
+import configEmpresa from '../../mikro-orm.config.empresa';
 // import { Migration20220106200228 } from '../../database/migrations/Migration20220106200228';
 
 
@@ -26,11 +27,33 @@ export class TenantsService {
     async createEntity(){
         // await this.em.execute('CREATE SCHEMA IF NOT EXISTS schemaPrueba');
 
-        const schemaGen = await this.or.getSchemaGenerator();
+        // const schemaGen = await this.or.getSchemaGenerator();
 
-        const newSchema = await schemaGen.createSchema({ schema : 'empresa' });
+        // const newSchema = await schemaGen.createSchema({ schema : 'public' });
 
-        console.log(newSchema);
+        // console.log( (await this.or.connect()).getConnection() );
+        
+        const connectionManager = await this.or.connect();
+        console.log(connectionManager.getConnection().getConnectionOptions());
+
+        const schemaGenPublic = this.or.getSchemaGenerator();
+        await schemaGenPublic.createSchema({ schema : 'public' });
+
+        await connectionManager.getConnection().close() 
+
+        
+        const or2 = await MikroORM.init({
+            ...configEmpresa
+        });
+
+        const connectionManager2 = await or2.connect();
+        console.log(connectionManager2.getConnection().getConnectionOptions());
+
+        const schemaGenEmpresa = or2.getSchemaGenerator();
+        await schemaGenEmpresa.createSchema({ schema : 'empresa1'});
+
+        await connectionManager2.close();
+
 
         // const migrator = await this.or.getMigrator();
         // console.log(migrator);
@@ -39,7 +62,7 @@ export class TenantsService {
         
         // console.log(resp);
         // await this.tenantRepository.createQueryBuilder().insert({ name : 'schemaPrueba'}).withSchema('schemaPrueba');
-        return ;
+        return 'ok';
     }
 
 }
