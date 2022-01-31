@@ -26,13 +26,14 @@ export class TenantsService {
     async createEntity(){
         // await this.em.execute('CREATE SCHEMA IF NOT EXISTS schemaPrueba');
 
-        const migrator = this.or.getMigrator();
+        const migrator = await this.or.getMigrator();
         // console.log(migrator);
-        const migracion = await migrator.createInitialMigration(); 
-        await migrator.up();
+        // const migracion = await migrator.createInitialMigration(); 
+        const resp = await migrator.up('20220131161422');
         
+        console.log(resp);
         // await this.tenantRepository.createQueryBuilder().insert({ name : 'schemaPrueba'}).withSchema('schemaPrueba');
-        return migracion;
+        return resp;
     }
 
 }
