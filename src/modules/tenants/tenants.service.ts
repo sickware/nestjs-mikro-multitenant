@@ -28,8 +28,8 @@ export class TenantsService {
 
         const migrator = await this.or.getMigrator();
         // console.log(migrator);
-        // const migracion = await migrator.createInitialMigration(); 
-        const resp = await migrator.up('20220131161422');
+        // const migracion = await migrator.createMigration(); 
+        const resp = await migrator.up('20220106200228');
         
         console.log(resp);
         // await this.tenantRepository.createQueryBuilder().insert({ name : 'schemaPrueba'}).withSchema('schemaPrueba');
