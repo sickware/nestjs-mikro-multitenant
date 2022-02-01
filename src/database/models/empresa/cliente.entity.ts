@@ -1,6 +1,6 @@
 import { Entity, Property, ManyToOne } from '@mikro-orm/core';
 import { AbstractEntity } from '../abstract.entity';
-import { Organizacion } from '../public/organizacion.entity';
+// import { Organizacion } from '../public/organizacion.entity';
 
 @Entity({ schema : '*' })
 export class Cliente extends AbstractEntity{
@@ -14,6 +14,6 @@ export class Cliente extends AbstractEntity{
     @Property()
     observacionCliente : string;
 
-    @ManyToOne({ entity : () => Organizacion, fieldName : 'uuid' })
-    idOrganizacion! : Organizacion;
+    // @ManyToOne({ entity : () => Organizacion, fieldName : 'uuid' })
+    // idOrganizacion! : Organizacion;
 }
