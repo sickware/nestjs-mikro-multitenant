@@ -28,13 +28,14 @@ export class TenantsService {
     async createEntity(){
 
         //Public
-        const connectionManager = await this.or.connect();
-        console.log(connectionManager.getConnection().getConnectionOptions());
+        // const connectionManager = await this.or.connect();
+        // console.log(connectionManager.getConnection().getConnectionOptions());
 
-        const schemaGenPublic = this.or.getSchemaGenerator();
-        await schemaGenPublic.createSchema({ schema : 'public' });
+        // const schemaGenPublic = this.or.getSchemaGenerator();
+        // const resp1 = await schemaGenPublic.createSchema({ schema : 'public' });
+        // // console.log(resp1);
 
-        await connectionManager.getConnection().close() 
+        // await connectionManager.getConnection().close() 
 
 
         //Empresa    
@@ -46,7 +47,8 @@ export class TenantsService {
         console.log(connectionManager2.getConnection().getConnectionOptions());
 
         const schemaGenEmpresa = or2.getSchemaGenerator();
-        await schemaGenEmpresa.createSchema({ schema : 'empresa1'});
+        const resp2 = await schemaGenEmpresa.createSchema({ schema : 'empresa2'});
+        // console.log(resp2);
 
         await connectionManager2.close();
 
@@ -57,13 +59,14 @@ export class TenantsService {
 
         const schemaGenSucursal = or3.getSchemaGenerator()
 
-        await schemaGenSucursal.createSchema({ schema : 'sucursal1' })
+        const resp3 = await schemaGenSucursal.createSchema({ schema : 'sucursal2' })
+        // console.log(resp3);
 
         await or3.close();
 
 
         
-        return 'ok';
+        return 'schemas creados';
     }
 
 }
