@@ -17,9 +17,9 @@ export class Sucursal extends AbstractEntity{
 
     // @ManyToOne({ entity : () => Organizacion, fieldName : 'uuid'})
     // idOrganizacion : Organizacion;
-    @Property()
+    @Property({ type : 'uuid' })
     idClienteAsignado : string;//empresa
 
-    @Property()
+    @Property({ type : 'uuid' })
     idOrganizacion : string;//public
 }

@@ -25,6 +25,6 @@ export class Cliente extends AbstractEntity{
     // @ManyToOne({ entity : () => Organizacion, fieldName : 'uuid' })
     // idOrganizacion! : Organizacion;
 
-    @Property()
+    @Property({ type : 'uuid' })
     idOrganizacion : string;
 }
