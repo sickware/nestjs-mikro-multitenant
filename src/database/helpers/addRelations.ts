@@ -11,6 +11,12 @@ import { camelToSnakeCase } from '../helpers/utils';
  * 
  * podria enviarse separado (tenant_12546, organizacion, )
  * o todo junto (tenant123154.organizacion,)./
+ * 
+ * 
+ * ALTER TABLE empresa2.cliente
+ * ADD CONSTRAINT fk_public
+ * FOREIGN KEY (id_organizacion)
+ * REFERENCES public.organizacion(uuid);
  */
 
 export const addRelations = ( schemaForeign : string, tableForeign : string, schemaPrimary : string, tablePrimary : string ) : string  => {
