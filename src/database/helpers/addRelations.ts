@@ -12,7 +12,9 @@ import { camelToSnakeCase } from '../helpers/utils';
  * podria enviarse separado (tenant_12546, organizacion, )
  * o todo junto (tenant123154.organizacion,)./
  * 
- * 
+ * query para agregar relaciones entre schemas
+ * debe ejecutarse en una solo instruccion todos los
+ * alters para que sea eficiente
  * ALTER TABLE empresa2.cliente
  * ADD CONSTRAINT fk_public
  * FOREIGN KEY (id_organizacion)

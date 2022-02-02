@@ -18,6 +18,16 @@ export const makeRelationsSucursal = () => {
     console.log(sucursalRelations);
 }
 
-export const makeRelations = ( schema : string ) => {
-    
+export const makeRelations = ( publicSchema : string, empresaSchema : string, sucursalSchema : string ) => {
+ 
+    /**
+     * hacer un slice de las propiedades tableForeign y tablePrimary para 
+     * dividir los nombres de los schemas y las tablas
+     * 
+     * reemplazar el nombre del schema *podria ahorrarse con la funcion addSchema
+     * 
+     * devolver el nuevo string con ayuda de la funcion add relations 
+     * 
+     * una vez devuelto los strings ejecutarlos con query builder
+     * */
 }
