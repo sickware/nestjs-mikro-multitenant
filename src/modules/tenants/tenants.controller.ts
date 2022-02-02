@@ -8,7 +8,8 @@ export class TenantsController {
 
     @Get()
     getConnection(){
-        return this.tenantService.getConnection();    
+        // return this.tenantService.getConnection();    
+        return this.tenantService.runMigrations();
     }
 
     @Get('/create')

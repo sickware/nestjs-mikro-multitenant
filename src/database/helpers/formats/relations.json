@@ -1,0 +1,14 @@
+[
+    {
+        "primary" : "public.organizacion.uuid",
+        "foreign" : "empresa.cliente.idOrgnanizacion"   
+    },
+    {
+        "primary" : "empresa.cliente.uuid",
+        "foreign" : "sucursal.sucursal.idClienteAsignado"   
+    },
+    {
+        "primary" : "public.organizacion.uuid",
+        "foreign" : "sucursal.sucursal.idOrgnanizacion"   
+    }
+]

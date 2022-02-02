@@ -6,6 +6,7 @@ import { MikroORM } from '@mikro-orm/core';
 import { getTenantConnection } from '../tenancy/tenancy.util';
 import configEmpresa from '../../mikro-orm.config.empresa';
 import configSucursal from '../../mikro-orm.config.sucursal';
+import { makeRelationsEmpresa, makeRelationsSucursal } from './../../database/helpers/makeRalations';
 // import { Migration20220106200228 } from '../../database/migrations/Migration20220106200228';
 
 
@@ -67,6 +68,12 @@ export class TenantsService {
 
         
         return 'schemas creados';
+    }
+
+    runMigrations(){
+        makeRelationsEmpresa();
+        makeRelationsSucursal();
+        return "ok_mig"
     }
 
 }

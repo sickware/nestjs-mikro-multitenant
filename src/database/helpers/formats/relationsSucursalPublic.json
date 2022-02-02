@@ -1,0 +1,6 @@
+[
+    {
+        "primary" : "organizacion.uuid",
+        "foreign" : "sucursal.idOrgnanizacion"   
+    }
+]
