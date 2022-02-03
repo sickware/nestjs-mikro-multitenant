@@ -29,15 +29,15 @@ export class TenantsService {
 
     async createEntity(){
 
-        //Public
-        const connectionManager = await this.or.connect();
-        console.log(connectionManager.getConnection().getConnectionOptions());
+        // //Public
+        // const connectionManager = await this.or.connect();
+        // console.log(connectionManager.getConnection().getConnectionOptions());
 
-        const schemaGenPublic = this.or.getSchemaGenerator();
-        const resp1 = await schemaGenPublic.createSchema({ schema : 'public' });
-        // console.log(resp1);
+        // const schemaGenPublic = this.or.getSchemaGenerator();
+        // const resp1 = await schemaGenPublic.createSchema({ schema : 'public' });
+        // // console.log(resp1);
 
-        await connectionManager.getConnection().close() 
+        // await connectionManager.getConnection().close() 
 
 
         //Empresa    
@@ -49,7 +49,7 @@ export class TenantsService {
         console.log(connectionManager2.getConnection().getConnectionOptions());
 
         const schemaGenEmpresa = or2.getSchemaGenerator();
-        const resp2 = await schemaGenEmpresa.createSchema({ schema : 'empresa2'});
+        const resp2 = await schemaGenEmpresa.createSchema({ schema : 'empresa6'});
         // console.log(resp2);
 
         await connectionManager2.close();
@@ -61,7 +61,7 @@ export class TenantsService {
 
         const schemaGenSucursal = or3.getSchemaGenerator()
 
-        const resp3 = await schemaGenSucursal.createSchema({ schema : 'sucursal2' })
+        const resp3 = await schemaGenSucursal.createSchema({ schema : 'sucursal6' })
         // console.log(resp3);
 
         await or3.close();
@@ -72,8 +72,8 @@ export class TenantsService {
     async makeRelations(){
         const schemas : Schemas = {
             public : 'public',
-            empresa : 'empresa2',
-            sucursal : 'sucursal2'
+            empresa : 'empresa6',
+            sucursal : 'sucursal6'
         }
 
         const relationsEmpresa : Relation[]  = injectSchemas( empresaRelations, schemas );
@@ -86,6 +86,7 @@ export class TenantsService {
             const resp = await this.em.execute(queryEmpresa+querySucursal);
             return resp;
         } catch (error) {
+            console.log(error);
             return 'error al crear la relacion, revise si ya existe'
         }
     }

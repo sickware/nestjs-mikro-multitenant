@@ -1,0 +1,199 @@
+[33mcommit 3eb19bfa4fb572d2f82a8b6cf80b863655e6f21d[m
+Author: Rafael Ledesma <rledesma@softengy.com>
+Date:   Mon Jan 31 10:26:13 2022 -0600
+
+    Migracion ejecutada desde tenants.service.ts
+
+[1mdiff --git a/src/database/migrations/.snapshot-multitenant.json b/src/database/migrations/.snapshot-multitenant.json[m
+[1mnew file mode 100644[m
+[1mindex 0000000..da1053e[m
+[1m--- /dev/null[m
+[1m+++ b/src/database/migrations/.snapshot-multitenant.json[m
+[36m@@ -0,0 +1,122 @@[m
+[32m+[m[32m{[m
+[32m+[m[32m  "namespaces": [[m
+[32m+[m[32m    "public"[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "name": "public",[m
+[32m+[m[32m  "tables": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m      "columns": {[m
+[32m+[m[32m        "uuid": {[m
+[32m+[m[32m          "name": "uuid",[m
+[32m+[m[32m          "type": "uuid",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "default": "uuid_generate_v4()",[m
+[32m+[m[32m          "mappedType": "uuid"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "created_at": {[m
+[32m+[m[32m          "name": "created_at",[m
+[32m+[m[32m          "type": "timestamptz(0)",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "length": 6,[m
+[32m+[m[32m          "mappedType": "datetime"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "updated_at": {[m
+[32m+[m[32m          "name": "updated_at",[m
+[32m+[m[32m          "type": "timestamptz(0)",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "length": 6,[m
+[32m+[m[32m          "mappedType": "datetime"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "name": {[m
+[32m+[m[32m          "name": "name",[m
+[32m+[m[32m          "type": "varchar(255)",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "mappedType": "string"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "name": "tenant",[m
+[32m+[m[32m      "schema": "public",[m
+[32m+[m[32m      "indexes": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "keyName": "tenant_pkey",[m
+[32m+[m[32m          "columnNames": [[m
+[32m+[m[32m            "uuid"[m
+[32m+[m[32m          ],[m
+[32m+[m[32m          "composite": false,[m
+[32m+[m[32m          "primary": true,[m
+[32m+[m[32m          "unique": true[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "foreignKeys": {}[m
+[32m+[m[32m    },[m
+[32m+[m[32m    {[m
+[32m+[m[32m      "columns": {[m
+[32m+[m[32m        "uuid": {[m
+[32m+[m[32m          "name": "uuid",[m
+[32m+[m[32m          "type": "uuid",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "default": "uuid_generate_v4()",[m
+[32m+[m[32m          "mappedType": "uuid"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "created_at": {[m
+[32m+[m[32m          "name": "created_at",[m
+[32m+[m[32m          "type": "timestamptz(0)",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "length": 6,[m
+[32m+[m[32m          "mappedType": "datetime"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "updated_at": {[m
+[32m+[m[32m          "name": "updated_at",[m
+[32m+[m[32m          "type": "timestamptz(0)",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "length": 6,[m
+[32m+[m[32m          "mappedType": "datetime"[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "name": {[m
+[32m+[m[32m          "name": "name",[m
+[32m+[m[32m          "type": "varchar(255)",[m
+[32m+[m[32m          "unsigned": false,[m
+[32m+[m[32m          "autoincrement": false,[m
+[32m+[m[32m          "primary": false,[m
+[32m+[m[32m          "nullable": false,[m
+[32m+[m[32m          "mappedType": "string"[m
+[32m+[m[32m        }[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "name": "user",[m
+[32m+[m[32m      "schema": "public",[m
+[32m+[m[32m      "indexes": [[m
+[32m+[m[32m        {[m
+[32m+[m[32m          "keyName": "user_pkey",[m
+[32m+[m[32m          "columnNames": [[m
+[32m+[m[32m            "uuid"[m
+[32m+[m[32m          ],[m
+[32m+[m[32m          "composite": false,[m
+[32m+[m[32m          "primary": true,[m
+[32m+[m[32m          "unique": true[m
+[32m+[m[32m        }[m
+[32m+[m[32m      ],[m
+[32m+[m[32m      "foreignKeys": {}[m
+[32m+[m[32m    }[m
+[32m+[m[32m  ][m
+[32m+[m[32m}[m
+[1mdiff --git a/src/database/migrations/Migration20220131161422.ts b/src/database/migrations/Migration20220131161422.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..026530d[m
+[1m--- /dev/null[m
+[1m+++ b/src/database/migrations/Migration20220131161422.ts[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mimport { Migration } from '@mikro-orm/migrations';[m
+[32m+[m
+[32m+[m[32mexport class Migration20220131161422 extends Migration {[m
+[32m+[m
+[32m+[m[32m  async up(): Promise<void> {[m
+[32m+[m[32m    this.addSql('create table "tenant" ("uuid" uuid not null default uuid_generate_v4(), "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "name" varchar(255) not null);');[m
+[32m+[m[32m    this.addSql('alter table "tenant" add constraint "tenant_pkey" primary key ("uuid");');[m
+[32m+[m
+[32m+[m[32m    this.addSql('create table "user" ("uuid" uuid not null default uuid_generate_v4(), "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "name" varchar(255) not null);');[m
+[32m+[m[32m    this.addSql('alter table "user" add constraint "user_pkey" primary key ("uuid");');[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  async down(): Promise<void> {[m
+[32m+[m[32m    this.addSql('drop table if exists "tenant" cascade;');[m
+[32m+[m
+[32m+[m[32m    this.addSql('drop table if exists "user" cascade;');[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/mikro-orm.config.ts b/src/mikro-orm.config.ts[m
+[1mindex 7ccf678..c5f166a 100644[m
+[1m--- a/src/mikro-orm.config.ts[m
+[1m+++ b/src/mikro-orm.config.ts[m
+[36m@@ -11,10 +11,10 @@[m [mconst config : Options = {[m
+     entitiesTs : [ 'src/**/*.entity.ts' ],//podemos especificar las rutas *no es necesario[m
+     metadataProvider : TsMorphMetadataProvider,[m
+     migrations : {[m
+[31m-        path : 'dist/migrations',[m
+[32m+[m[32m        path : 'dist/database/migrations',[m
+         pathTs : Path.join( __dirname, './database/migrations'),[m
+         glob : '!(*.d).{js,ts}',[m
+[31m-        transactional : true,[m
+[32m+[m[32m        // transactional : true,[m
+     },[m
+     seeder : {[m
+         path : 'src/database/seeders',[m
+[1mdiff --git a/src/modules/tenants/tenants.service.ts b/src/modules/tenants/tenants.service.ts[m
+[1mindex 589d350..7a84740 100644[m
+[1m--- a/src/modules/tenants/tenants.service.ts[m
+[1m+++ b/src/modules/tenants/tenants.service.ts[m
+[36m@@ -26,13 +26,14 @@[m [mexport class TenantsService {[m
+     async createEntity(){[m
+         // await this.em.execute('CREATE SCHEMA IF NOT EXISTS schemaPrueba');[m
+ [m
+[31m-        const migrator = this.or.getMigrator();[m
+[32m+[m[32m        const migrator = await this.or.getMigrator();[m
+         // console.log(migrator);[m
+[31m-        const migracion = await migrator.createInitialMigration(); [m
+[31m-        await migrator.up();[m
+[32m+[m[32m        // const migracion = await migrator.createInitialMigration();[m[41m [m
+[32m+[m[32m        const resp = await migrator.up('20220131161422');[m
+         [m
+[32m+[m[32m        console.log(resp);[m
+         // await this.tenantRepository.createQueryBuilder().insert({ name : 'schemaPrueba'}).withSchema('schemaPrueba');[m
+[31m-        return migracion;[m
+[32m+[m[32m        return resp;[m
+     }[m
+ [m
+ }[m
