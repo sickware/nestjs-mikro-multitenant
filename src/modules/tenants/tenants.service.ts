@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository, MikroOrmModule } from '@mikro-orm/nestjs';
-import { Tenant } from './../../database/models/public/tenant.entity';
+import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { MikroORM } from '@mikro-orm/core';
+
+import { Tenant } from '../../database/models/public/tenant.entity';
 import { getTenantConnection } from '../tenancy/tenancy.util';
 import configEmpresa from '../../mikro-orm.config.empresa';
 import configSucursal from '../../mikro-orm.config.sucursal';
-import { makeRelationsEmpresa, makeRelationsSucursal } from './../../database/helpers/makeRalations';
-// import { Migration20220106200228 } from '../../database/migrations/Migration20220106200228';
-
+import { sucursalRelations } from '../../database/relations/relations';
+import { addRelations, injectSchemas } from '../../database/helpers/addRelations';
+import { Relation, Schemas } from '../../database/relations/relation.interface';
 
 @Injectable()
 export class TenantsService {
@@ -68,10 +69,16 @@ export class TenantsService {
         return 'schemas creados';
     }
 
-    runMigrations(){
-        makeRelationsEmpresa();
-        makeRelationsSucursal();
-        return "ok_mig"
+    makeRelations(){
+        const schemas : Schemas = {
+            public : 'public1234',
+            empresa : 'empresa1234',
+            sucursal : 'sucursal123'
+        }
+
+        const newRelations : Relation[]  = injectSchemas( sucursalRelations, schemas );
+
+        return addRelations( newRelations );
     }
 
 }

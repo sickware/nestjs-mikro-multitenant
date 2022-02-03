@@ -1,6 +1,0 @@
-[
-    {
-        "primary" : "cliente.uuid",
-        "foreign" : "sucursal.idClienteAsignado"   
-    }
-]

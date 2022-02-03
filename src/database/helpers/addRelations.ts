@@ -1,32 +1,36 @@
 import { camelToSnakeCase } from '../helpers/utils';
-;
+import { Relation, Schemas } from '../relations/relation.interface';
 
 /**
- * schemaPrimary = $empresa || $sucursal || $public
- * tablePrimary = Organizacion -> id || uuid
- * 
- * schemaForeign = $empresa || sucursal || public 
- * tableForeign = Cliente -> id_organizacion
- * 
- * 
- * podria enviarse separado (tenant_12546, organizacion, )
- * o todo junto (tenant123154.organizacion,)./
- * 
- * query para agregar relaciones entre schemas
- * debe ejecutarse en una solo instruccion todos los
- * alters para que sea eficiente
- * ALTER TABLE empresa2.cliente
- * ADD CONSTRAINT fk_public
- * FOREIGN KEY (id_organizacion)
- * REFERENCES public.organizacion(uuid);
+ * @param relations - Array de relaciones de los schemas
+ * @param schemas - nombres de los schemas(public,sucursal,empresa)
  */
+export const injectSchemas = ( relations : Relation[], schemas : Schemas ) : Relation[] => {
 
-export const addRelations = ( schemaForeign : string, tableForeign : string, schemaPrimary : string, tablePrimary : string ) : string  => {
-    
-    const query = `ALTER TABLE ${ schemaForeign+'.'+camelToSnakeCase( tableForeign )}
-    ADD CONSTRAINT fk${ schemaForeign+'.'+tableForeign+'_'+schemaPrimary+'.'+tablePrimary }
-    FOREIGN KEY(id_${camelToSnakeCase( tablePrimary )})
-    REFERENCES ${ tablePrimary }(uuid);`
+    const newRelations = JSON.parse(JSON.stringify(relations));
+
+    newRelations.map( ({ foreign, reference }) => {
+        return (
+            foreign.lvlSchema = schemas[foreign.lvlSchema],
+            foreign.field = camelToSnakeCase(foreign.field),
+            reference.lvlSchema = schemas[reference.lvlSchema],
+            reference.field = camelToSnakeCase(reference.field)
+        )
+    });
+
+    return newRelations;
+}
+
+export const addRelations = ( relations : Relation[] ) : string  => {
+
+    let query = '';
+
+    relations.map( ({ foreign , reference }) => {
+        query += `ALTER TABLE ${ foreign.lvlSchema+'.'+camelToSnakeCase( foreign.table ) }
+        ADD CONSTRAINT fk_${ reference.table + '_' + foreign.table }
+        FOREIGN KEY(${ foreign.field })
+        REFERENCES ${ reference.lvlSchema + '.' + camelToSnakeCase( reference.table ) }(${ reference.field }); \n`
+    });
 
     return query;
 }
