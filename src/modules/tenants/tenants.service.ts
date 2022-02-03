@@ -82,9 +82,12 @@ export class TenantsService {
         const queryEmpresa =  addRelations( relationsEmpresa );
         const querySucursal = addRelations( relationsSucursal );
 
-        const resp = await this.em.execute(queryEmpresa+querySucursal);
-
-        return resp;
+        try {
+            const resp = await this.em.execute(queryEmpresa+querySucursal);
+            return resp;
+        } catch (error) {
+            return 'error al crear la relacion, revise si ya existe'
+        }
     }
 
 }

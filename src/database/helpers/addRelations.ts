@@ -27,7 +27,7 @@ export const addRelations = ( relations : Relation[] ) : string  => {
 
     relations.map( ({ foreign , reference }) => {
         query += `ALTER TABLE ${ foreign.lvlSchema+'.'+camelToSnakeCase( foreign.table ) }
-        ADD CONSTRAINT fk_${ reference.table + '_' + foreign.table }
+        ADD CONSTRAINT IF NOT EXISTS fk_${ reference.table + '_' + foreign.table }
         FOREIGN KEY(${ foreign.field })
         REFERENCES ${ reference.lvlSchema + '.' + camelToSnakeCase( reference.table ) }(${ reference.field }); \n`
     });
