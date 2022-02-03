@@ -7,7 +7,7 @@ import { Tenant } from '../../database/models/public/tenant.entity';
 import { getTenantConnection } from '../tenancy/tenancy.util';
 import configEmpresa from '../../mikro-orm.config.empresa';
 import configSucursal from '../../mikro-orm.config.sucursal';
-import { sucursalRelations } from '../../database/relations/relations';
+import { sucursalRelations, empresaRelations } from '../../database/relations/relations';
 import { addRelations, injectSchemas } from '../../database/helpers/addRelations';
 import { Relation, Schemas } from '../../database/relations/relation.interface';
 
@@ -69,16 +69,22 @@ export class TenantsService {
         return 'schemas creados';
     }
 
-    makeRelations(){
+    async makeRelations(){
         const schemas : Schemas = {
-            public : 'public1234',
-            empresa : 'empresa1234',
-            sucursal : 'sucursal123'
+            public : 'public',
+            empresa : 'empresa2',
+            sucursal : 'sucursal2'
         }
 
-        const newRelations : Relation[]  = injectSchemas( sucursalRelations, schemas );
+        const relationsEmpresa : Relation[]  = injectSchemas( empresaRelations, schemas );
+        const relationsSucursal : Relation[]  = injectSchemas( sucursalRelations, schemas );
 
-        return addRelations( newRelations );
+        const queryEmpresa =  addRelations( relationsEmpresa );
+        const querySucursal = addRelations( relationsSucursal );
+
+        const resp = await this.em.execute(queryEmpresa+querySucursal);
+
+        return resp;
     }
 
 }

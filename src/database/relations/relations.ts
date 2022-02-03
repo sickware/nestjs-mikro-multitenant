@@ -10,7 +10,7 @@ export const empresaRelations : Relation[] = [
         'foreign' : {
             'lvlSchema' : 'empresa',
             'table' : 'cliente',
-            'field' : 'idOrgnanizacion'
+            'field' : 'idOrganizacion'
         },
         'reference' : {
             'lvlSchema' : 'public',
