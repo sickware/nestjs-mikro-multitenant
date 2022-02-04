@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { OrganizacionDto } from './dto/organizacion.dto';
 import { OrganizacionService } from './organizacion.service';
 
@@ -11,6 +11,6 @@ export class OrganizacionController {
 
     @Post()
     saveOrganizacion(@Body() body : OrganizacionDto){
-        return this.organizacionService.saveOrganizacion( body );
+        return this.organizacionService.saveOrganizacion( body, 'public' );
     }
 }

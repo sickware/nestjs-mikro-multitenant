@@ -12,8 +12,8 @@ export class OrganizacionService {
         @InjectRepository(Organizacion) private readonly organizacionRepo : EntityRepository<Organizacion>
     ){}
 
-    async saveOrganizacion( data : OrganizacionDto){
+    async saveOrganizacion( data : OrganizacionDto, schema : string ){
         const organizacion = this.organizacionRepo.create( data );
-        return await this.organizacionRepo.persistAndFlush( organizacion );
+        return await this.organizacionRepo.createQueryBuilder().insert( organizacion ).withSchema( schema );
     }
 }

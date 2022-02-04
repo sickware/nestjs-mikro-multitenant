@@ -1,4 +1,4 @@
-import { IsString, IsBoolean } from 'class-validator';
+import { IsString, IsBoolean, IsEmail } from 'class-validator';
 
 export class OrganizacionDto{
 
@@ -14,7 +14,7 @@ export class OrganizacionDto{
     @IsString()
     logo : string;
 
-    @IsString()
+    @IsEmail()
     email : string;
 
     @IsBoolean()

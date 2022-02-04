@@ -11,7 +11,9 @@ import { OrganizacionModule } from './modules/organizacion/organizacion.module';
   imports: [
     MikroOrmModule.forRoot(),
     TenantsModule, 
-    TenancyModule, ClientesModule, OrganizacionModule,
+    TenancyModule, 
+    ClientesModule, 
+    OrganizacionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
