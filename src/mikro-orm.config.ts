@@ -7,17 +7,17 @@ const config : Options = {
     dbName : 'multitenant',
     user : 'postgres',
     password : '13051997ec',
-    entities : [ 'dist/database/models/public/*.entity.js' ],
-    entitiesTs : [ 'src/database/models/public/*.entity.ts' ],//podemos especificar las rutas *no es necesario
+    entities : [ 'dist/**/*.entity.js' ],
+    entitiesTs : [ 'src/**/*.entity.ts' ],//podemos especificar las rutas *no es necesario
     metadataProvider : TsMorphMetadataProvider,
     migrations : {
-        path : 'dist/database/migrations/public',
-        pathTs : Path.join( __dirname, './database/migrations/public'),
+        path : 'dist/database/migrations',
+        pathTs : Path.join( __dirname, './database/migrations'),
         glob : '!(*.d).{js,ts}',
         // transactional : true,
     },
     seeder : {
-        path : 'src/database/seeders/public',
+        path : 'src/database/seeders',
         defaultSeeder : 'PublicSeeder'
     }
 }
