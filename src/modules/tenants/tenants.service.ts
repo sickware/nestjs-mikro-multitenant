@@ -96,36 +96,34 @@ export class TenantsService {
 
 
     async makeSchemaEmpresa( schemaName : string ){  
-        const or2 = await MikroORM.init({
-            ...configEmpresa
-        });
-
-        const connectionManager2 = await or2.connect();
-        const schemaGenEmpresa = or2.getSchemaGenerator();
-        await schemaGenEmpresa.createSchema({ schema : schemaName });
-
-
-        const schemas : Schemas = {
-            public : 'public',
-            empresa : schemaName,
-            sucursal : ''
-        }
-
-        const relationsEmpresa : Relation[]  = injectSchemas( empresaRelations, schemas );
-      
-
-        const queryEmpresa =  addRelations( relationsEmpresa );
-        // const querySucursal = addRelations( relationsSucursal );
-
         try {
-            // const resp = await this.em.execute(queryEmpresa+querySucursal);
-            // return resp;
+
+            const or2 = await MikroORM.init({
+                ...configEmpresa
+            });
+    
+            const connectionManager2 = await or2.connect();
+            const schemaGenEmpresa = or2.getSchemaGenerator();
+            await schemaGenEmpresa.createSchema({ schema : schemaName });
+            
+            await connectionManager2.close();
+    
+            const schemas : Schemas = {
+                public : 'public',
+                empresa : schemaName,
+                sucursal : ''
+            }
+    
+            const relationsEmpresa : Relation[]  = injectSchemas( empresaRelations, schemas );
+          
+            const queryEmpresa =  addRelations( relationsEmpresa )
+            const resp = await this.em.execute(queryEmpresa);
+
+            return resp;
         } catch (error) {
             console.log(error);
-            return 'error al crear la relacion, revise si ya existe'
+            return 'error al crear el schema'
         }
-
-        await connectionManager2.close();
     }
 
 

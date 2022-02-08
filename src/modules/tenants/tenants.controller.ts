@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { TenantsService } from './tenants.service';
 
 @Controller('tenants')
@@ -22,5 +22,10 @@ export class TenantsController {
     @Get('/public')
     createSchemaBase(){
         return this.tenantService.makeSchemaBase();
+    }
+
+    @Post('/create/empresa')
+    createSchemaEmpresa(@Body('schema') nameSchema : string ){
+        return this.tenantService.makeSchemaEmpresa(nameSchema)
     }
 }
