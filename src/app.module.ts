@@ -6,7 +6,7 @@ import { TenancyModule } from './modules/tenancy/tenancy.module';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ClientesModule } from './modules/clientes/clientes.module';
 import { OrganizacionModule } from './modules/organizacion/organizacion.module';
-import { TenancyMiddleware } from './modules/tenancy/tenancy.middleware';
+import { TenancyMiddleware, ExistTenantMiddleware } from './modules/tenancy/tenancy.middleware';
 
 @Module({
   imports: [
@@ -23,7 +23,10 @@ import { TenancyMiddleware } from './modules/tenancy/tenancy.middleware';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(TenancyMiddleware)
+      .apply(
+        TenancyMiddleware,
+        ExistTenantMiddleware
+      )
       .forRoutes('*')
   }
 }
