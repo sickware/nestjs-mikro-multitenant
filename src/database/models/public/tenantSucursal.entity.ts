@@ -1,14 +1,14 @@
 import { Entity, Property, ManyToOne } from '@mikro-orm/core';
 import { AbstractEntity } from "../abstract.entity";
-import { TenantsEmpresa } from './tenantsEmpresa.entity';
+import { TenantEmpresa } from './tenantEmpresa.entity';
 
 @Entity({ schema : '*' })
-export class TenantsSucursal extends AbstractEntity{
+export class TenantSucursal extends AbstractEntity{
 
     @Property()
     name : string
 
     @ManyToOne()
-    idTenantEmpresa : TenantsEmpresa
+    idTenantEmpresa : TenantEmpresa
 
 }
