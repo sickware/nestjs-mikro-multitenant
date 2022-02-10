@@ -1,8 +1,9 @@
-###Crear schema base (public)
-GET http://127.0.0.1:3000/tenants/create/base
+### Crear schema base (public)
+GET http://127.0.0.                                                                                                                                                                                                                                                                                                                                                                                                                 1:3000/tenants/create/base
 x-tenant-id: public
 
-###Crear tenant empresa
+
+### Crear tenant empresa
 POST http://127.0.0.1:3000/tenants/create/empresa
 Content-Type: application/json
 x-tenant-id: public
@@ -11,23 +12,24 @@ x-tenant-id: public
     "schema" : "amd"
 }
 
-###Crear tenant sucursal
+
+### Crear tenant sucursal
 POST http://127.0.0.1:3000/tenants/create/sucursal/65b4aecd-6d0a-4868-944d-b738f64193f2
 Content-Type: application/json
 x-tenant-id: public
 
 {
-    "schema" : "matriz"
+    "schema" : "sur"
 }
 
 
-###Get all tenants empresa
+### Get all tenants empresa
 GET http://127.0.0.1:3000/tenants/empresa
 Content-Type: application/json
 x-tenant-id: public
 
 
-###Get all tenants sucursal by id empresa
+### Get all tenants sucursal by id empresa
 GET http://127.0.0.1:3000/tenants/sucursal/65b4aecd-6d0a-4868-944d-b738f64193f2
 Content-Type: application/json
 x-tenant-id: public
