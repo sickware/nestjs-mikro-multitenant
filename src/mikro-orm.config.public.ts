@@ -3,13 +3,8 @@ import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import * as Path from 'path';
 
 const configPublic : Options = {
-    type : 'postgresql',
-    dbName : 'multitenant',
-    user : 'postgres',
-    password : '13051997ec',
     entities : [ 'dist/database/models/public/*.entity.js' ],
     entitiesTs : [ 'src/database/models/public/*.entity.ts' ],//podemos especificar las rutas *no es necesario
-    metadataProvider : TsMorphMetadataProvider,
     migrations : {
         path : 'dist/database/migrations/public',
         pathTs : Path.join( __dirname, './database/migrations/public'),

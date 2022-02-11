@@ -16,7 +16,7 @@ export class TenancyMiddleware implements NestMiddleware{
 
             }, HttpStatus.UNAUTHORIZED );
         }
-        req.body.tenantId = header?.toString() || null;
+        // req.body.tenantId = header?.toString() || null;
         next();
     }
 }

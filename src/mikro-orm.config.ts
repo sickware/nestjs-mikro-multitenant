@@ -2,11 +2,8 @@ import { Options } from '@mikro-orm/core';
 import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import * as Path from 'path';
 
+//TODO cambiar la conf por variables de entorno .env
 const config : Options = {
-    type : 'postgresql',
-    dbName : 'multitenant',
-    user : 'postgres',
-    password : '13051997ec',
     entities : [ 'dist/**/*.entity.js' ],
     entitiesTs : [ 'src/**/*.entity.ts' ],//podemos especificar las rutas *no es necesario
     metadataProvider : TsMorphMetadataProvider,

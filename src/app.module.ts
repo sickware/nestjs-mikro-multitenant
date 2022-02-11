@@ -28,7 +28,8 @@ export class AppModule implements NestModule {
         ExistTenantMiddleware
       )
       .exclude(
-        { path : 'tenants/create/base', method : RequestMethod.GET }
+        { path : 'tenants/create/base', method : RequestMethod.GET },
+        { path : 'tenants/create/empresa', method : RequestMethod.POST }
       )
       .forRoutes('*')
   }

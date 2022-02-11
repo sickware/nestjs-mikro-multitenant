@@ -12,8 +12,27 @@ export class ClientesService {
         @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>
     ){}
 
+    async getClientes( schema : string ) : Promise<Cliente[]>{
+        return await this.clienteRepo.findAll({ schema });
+    }
+
     async saveCliente( data : ClienteDto, schema : string ){
         const cliente = this.clienteRepo.create( data );
-        return await this.clienteRepo.createQueryBuilder().insert( cliente ).withSchema( schema );
+        const resp = await this.clienteRepo.createQueryBuilder().insert( cliente ).withSchema( schema );
+
+        if( !resp ){
+            throw new Error('Error al guardar el cliente');
+        }
+
+        return cliente;
     }
+
+    async updateCliente( uuid : string, data : Partial<ClienteDto>, schema : string ){
+        return await this.clienteRepo.createQueryBuilder().update( data ).where({ uuid }).withSchema( schema );
+    }
+
+    async deleteCliente( uuid : string, schema : string){
+        return await this.clienteRepo.createQueryBuilder().delete().where({ uuid }).withSchema( schema );
+    }
+
 }
