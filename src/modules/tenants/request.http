@@ -4,13 +4,14 @@ GET http://127.0.0.1:3000/tenants/create/base
 ### Crear tenant EMPRESA
 POST http://127.0.0.1:3000/tenants/create/empresa
 Content-Type: application/json
+
 {
     "schema" : "Amd"
 }
 
 
 ### Crear tenant SUCURSAL
-POST http://127.0.0.1:3000/tenants/create/sucursal/1b96edea-aac9-4e00-8d8a-82e2d7ad3901
+POST http://127.0.0.1:3000/tenants/create/sucursal/d58d894b-54c4-4752-921e-42915146e405
 Content-Type: application/json
 x-tenant-id: public
 

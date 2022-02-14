@@ -19,6 +19,11 @@ export class ClientesController {
         return this.clienteService.getClientes( tenant );
     }
 
+    @Get('/all')
+    getClientesRelations(@Headers('x-tenant-id') tenant : string){
+        return this.clienteService.getClientesRelations( tenant );
+    }   
+
     @Put(':id')
     updateCliente(@Param('id') uuid : string, @Body() dataCliente : Partial<ClienteDto>, @Headers('x-tenant-id') tenant : string ){
         return this.clienteService.updateCliente( uuid, dataCliente, tenant );
