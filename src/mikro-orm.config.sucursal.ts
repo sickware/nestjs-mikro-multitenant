@@ -1,5 +1,4 @@
 import { Options } from '@mikro-orm/core';
-import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 import * as Path from 'path';
 
 const configSucursal : Options = {

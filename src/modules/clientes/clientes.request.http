@@ -1,0 +1,36 @@
+#Se obtienen la informacion del tenant enviado en el header
+### Obtener clientes de un tenant especifico
+GET http://127.0.0.1:3000/clientes
+x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+
+
+### Guardar informacion en tenant especifico
+#Se obtienen la informacion del tenant enviado en el header
+POST  http://127.0.0.1:3000/clientes
+x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+Content-Type: application/json
+
+{
+    "telefono" : "1258346592",
+    "observacionCliente" : "ninguna prueba 4",
+    "idOrganizacion" : "8a5856de-bbf5-4808-b755-b5e215036fae"
+}
+
+
+#Se obtienen la informacion del tenant enviado en el header
+#El id del cliente es enviado por param
+### Actualizar informacion por id de cliente en tenant espcifico
+PUT http://127.0.0.1:3000/clientes/0af119c9-7735-4e35-8067-5f7ddcf26e19
+x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+Content-Type: application/json
+
+{
+    "email" : "update_user_3@gmail.com"
+}
+
+
+#Se obtienen la informacion del tenant enviado en el header
+#El id del cliente es enviado por param
+### Eliminar cliente por id en tenant especifico
+DELETE http://127.0.0.1:3000/clientes/79a10a68-db86-4bd4-9d96-a94a050753d6
+x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
