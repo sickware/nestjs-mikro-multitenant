@@ -1,26 +1,29 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { EntityRepository } from '@mikro-orm/postgresql';
+import { EntityRepository, EntityManager } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 
 import { ClienteDto } from './dto/cliente.dto';
 import { Cliente } from '../../database/models/empresa/cliente.entity';
-import { Cliente as ClienteR} from '../../database/global-models/empresa/cliente.entity'
 
 @Injectable()
 export class ClientesService {
     
     constructor(
         @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>,
-        @InjectRepository(ClienteR) private readonly rClienteRepo : EntityRepository<ClienteR>
+        private readonly em  : EntityManager
     ){}
 
-    async getClientes( schema : string ) : Promise<Cliente[]>{
-        return await this.clienteRepo.findAll({ schema });
+    async getClientes( schema : string ) : Promise<Cliente[]> {
+        // return await this.clienteRepo.find({},{ populate : ['idOrganizacion'], schema })
+        return await this.clienteRepo.findAll({ populate : true , schema  });
+        // const clientes = await this.clienteRepo.findAll({ schema });
+        // return await this.clienteRepo.populate ( clientes , true );
+        // return await this.em.find(Cliente,{},{ schema, populate : true });
     }
 
     async getClientesRelations( schema : string ){
         // return await this.rClienteRepo.find({},{ schema, populate : true });
-        return await this.rClienteRepo.createQueryBuilder('c').select(['*']).join('c.idOrganizacion','o').withSchema( schema );
+        return await this.clienteRepo.createQueryBuilder('c').select('*').join('c.idOrganizacion','o');
     }
 
     async saveCliente( data : ClienteDto, schema : string ){

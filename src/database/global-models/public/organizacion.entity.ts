@@ -1,7 +1,7 @@
 import { Entity, Property } from '@mikro-orm/core';
 import { AbstractEntity } from '../abstract.entity';
 
-@Entity({ schema : '*'})
+@Entity({ schema : '*' })
 export class Organizacion extends AbstractEntity {
 
     @Property()

@@ -11,9 +11,9 @@ x-tenant-id : empresa_d58d894b_54c4_4752_921e_42915146e405
 Content-Type: application/json
 
 {
-    "email" : "prueba04@gmail.com",
+    "email" : "prueba05@gmail.com",
     "telefono" : "1258346592",
-    "observacionCliente" : "ninguna, prueba 7",
+    "observacionCliente" : "ninguna",
     "idOrganizacion" : "c6be537e-a53e-40f0-abb3-27d0b621c5d0"
 }
 
