@@ -120,7 +120,7 @@ export class TenantsService {
                 ...configEmpresa
             });
     
-            const schema = `empresa_${toSnake(tenantEmpresa.uuid)}`;
+            const schema = `company_${toSnake(tenantEmpresa.uuid)}`;
 
             const connectionManager2 = await or2.connect();
             const schemaGenEmpresa = or2.getSchemaGenerator();
@@ -165,8 +165,8 @@ export class TenantsService {
                 ...configSucursal
             });
     
-            const schema = `sucursal_${toSnake(sucursal.uuid)}`;
-            const schemaEmpresa = `empresa_${toSnake(idTenantEmpresa)}`
+            const schema = `branch_${toSnake(sucursal.uuid)}`;
+            const schemaEmpresa = `company_${toSnake(idTenantEmpresa)}`
             const schemaGenSucursal = or2.getSchemaGenerator();
             await schemaGenSucursal.createSchema({ schema : schema })
             await or2.close();
