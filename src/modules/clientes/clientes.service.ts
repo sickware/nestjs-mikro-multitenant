@@ -3,7 +3,7 @@ import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 
 import { ClienteDto } from './dto/cliente.dto';
-import { Cliente } from '../../database/models/empresa/cliente.entity';
+import { Cliente } from '../../database/models/global/empresa/cliente.entity';
 
 @Injectable()
 export class ClientesService {

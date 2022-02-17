@@ -12,8 +12,8 @@ import { getTenantConnection } from '../tenancy/tenancy.util';
 import { sucursalRelations, empresaRelations } from '../../database/relations/relations';
 import { addRelations, injectSchemas } from '../../database/helpers/addRelations';
 import { Relation, Schemas } from '../../database/relations/relation.interface';
-import { TenantEmpresa } from '../../database/models/public/tenantEmpresa.entity';
-import { TenantSucursal } from '../../database/models/public/tenantSucursal.entity';
+import { TenantEmpresa } from '../../database/models/global/public/tenantEmpresa.entity';
+import { TenantSucursal } from '../../database/models/global/public/tenantSucursal.entity';
 
 @Injectable()
 export class TenantsService {
