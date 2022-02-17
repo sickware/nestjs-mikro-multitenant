@@ -7,6 +7,7 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ClientesModule } from './modules/clientes/clientes.module';
 import { OrganizacionModule } from './modules/organizacion/organizacion.module';
 import { TenancyMiddleware, ExistTenantMiddleware } from './modules/tenancy/tenancy.middleware';
+import { SucursalModule } from './modules/sucursal/sucursal.module';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { TenancyMiddleware, ExistTenantMiddleware } from './modules/tenancy/tena
     TenantsModule, 
     TenancyModule, 
     ClientesModule, 
-    OrganizacionModule,
+    OrganizacionModule, SucursalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

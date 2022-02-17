@@ -11,10 +11,10 @@ x-tenant-id : empresa_d58d894b_54c4_4752_921e_42915146e405
 Content-Type: application/json
 
 {
-    "email" : "user6@test.com",
+    "email" : "user_asus_team@test.com",
     "telefono" : "1258346592",
     "observacionCliente" : "ninguna prueba 4",
-    "idOrganizacion" : "c6be537e-a53e-40f0-abb3-27d0b621c5d0"
+    "idOrganizacion" : "cf1036fe-779e-41ee-b27d-61d6992b1b06"
 }
 
 
