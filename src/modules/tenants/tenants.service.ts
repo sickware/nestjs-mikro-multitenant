@@ -12,8 +12,8 @@ import { getTenantConnection } from '../tenancy/tenancy.util';
 import { sucursalRelations, empresaRelations } from '../../database/relations/relations';
 import { addRelations, injectSchemas } from '../../database/helpers/addRelations';
 import { Relation, Schemas } from '../../database/relations/relation.interface';
-import { TenantEmpresa } from '../../database/models/public/tenantEmpresa.entity';
-import { TenantSucursal } from '../../database/models/public/tenantSucursal.entity';
+import { TenantEmpresa } from '../../database/global-models/public/tenantEmpresa.entity';
+import { TenantSucursal } from '../../database/global-models/public/tenantSucursal.entity';
 
 @Injectable()
 export class TenantsService {
@@ -22,15 +22,18 @@ export class TenantsService {
         @InjectRepository(TenantEmpresa) private readonly tenantEmpresaRepo : EntityRepository<TenantEmpresa>,
         @InjectRepository(TenantSucursal) private readonly tenantSucursalRepo : EntityRepository<TenantSucursal>,        // @InjectRepository(Tenant) private readonly tenantRepository : EntityRepository<Tenant> ,
         private readonly em : EntityManager,
-        private readonly or : MikroORM
     ){}
 
     async getTenantsEmpresa() : Promise<TenantEmpresa[]> {
-        return await this.tenantEmpresaRepo.findAll();
+        return await this.tenantEmpresaRepo.findAll();//por defecto hace la busqueda en public
     }
 
     async getTenantsSucursal( schemaEmpresa : string ) : Promise<TenantSucursal[]>{
         return await this.tenantSucursalRepo.find({ idTenantEmpresa : schemaEmpresa },{ populate : true });
+    }
+
+    async getEmpresaById( uuid : string ) : Promise<TenantEmpresa> {
+        return await this.tenantEmpresaRepo.findOne({ uuid },{ populate  : [ 'sucursales' ] });
     }
 
     getConnection(){
@@ -120,7 +123,7 @@ export class TenantsService {
                 ...configEmpresa
             });
     
-            const schema = `empresa_${toSnake(tenantEmpresa.uuid)}`;
+            const schema = `company_${toSnake(tenantEmpresa.uuid)}`;
 
             const connectionManager2 = await or2.connect();
             const schemaGenEmpresa = or2.getSchemaGenerator();
@@ -165,8 +168,8 @@ export class TenantsService {
                 ...configSucursal
             });
     
-            const schema = `sucursal_${toSnake(sucursal.uuid)}`;
-            const schemaEmpresa = `empresa_${toSnake(idTenantEmpresa)}`
+            const schema = `branch_${toSnake(sucursal.uuid)}`;
+            const schemaEmpresa = `company_${toSnake(idTenantEmpresa)}`
             const schemaGenSucursal = or2.getSchemaGenerator();
             await schemaGenSucursal.createSchema({ schema : schema })
             await or2.close();

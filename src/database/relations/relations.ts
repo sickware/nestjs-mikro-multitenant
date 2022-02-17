@@ -44,5 +44,17 @@ export const sucursalRelations : Relation[] = [
             'table' : 'organizacion',
             'field' : 'uuid'
         } 
+    },
+    {
+        'foreign' : {
+            'lvlSchema' : 'sucursal',
+            'table' : 'customer',
+            'field' : 'idCompanyUuid'
+        },
+        'reference' : {
+            'lvlSchema' : 'empresa',
+            'table' : 'company',
+            'field' : 'uuid'
+        }
     }
 ]

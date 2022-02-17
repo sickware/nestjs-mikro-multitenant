@@ -19,6 +19,11 @@ export class TenantsController {
         return this.tenantService.getTenantsEmpresa();
     }
 
+    @Get('/empresa/:id')
+    getEmpresaById(@Param('id') idEmpresa : string ){
+        return this.tenantService.getEmpresaById( idEmpresa);
+    }
+
     @Get('/sucursal/:idEmpresa')
     getTenantsSucursal(@Param('idEmpresa') idSchemaEmpresa : string ){
         return this.tenantService.getTenantsSucursal( idSchemaEmpresa );

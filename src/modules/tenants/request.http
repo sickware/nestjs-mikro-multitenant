@@ -6,17 +6,17 @@ POST http://127.0.0.1:3000/tenants/create/empresa
 Content-Type: application/json
 
 {
-    "schema" : "Amd"
+    "schema" : "Intek"
 }
 
 
 ### Crear tenant SUCURSAL
-POST http://127.0.0.1:3000/tenants/create/sucursal/d58d894b-54c4-4752-921e-42915146e405
+POST http://127.0.0.1:3000/tenants/create/sucursal/e5638f71-d52c-486b-b215-cc420803971a
 Content-Type: application/json
 x-tenant-id: public
 
 {
-    "schema" : "sucursal matriz"
+    "schema" : "West"
 }
 
 
@@ -29,6 +29,10 @@ x-tenant-id: public
 
 
 ### Get all tenants sucursal by id empresa
-GET http://127.0.0.1:3000/tenants/sucursal/1b96edea-aac9-4e00-8d8a-82e2d7ad3901
+GET http://127.0.0.1:3000/tenants/sucursal/e5638f71-d52c-486b-b215-cc420803971a
 Content-Type: application/json
+x-tenant-id: public
+
+### Obtener empresa por id con sus sus sucursales
+GET http://127.0.0.1:3000/tenants/empresa/e5638f71-d52c-486b-b215-cc420803971a
 x-tenant-id: public

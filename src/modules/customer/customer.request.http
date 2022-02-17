@@ -1,0 +1,3 @@
+###Get all customers with respective company
+GET http://127.0.0.1:3000/customer
+x-tenant-id : branch_c9c6704c_9978_41b5_aa24_80fd11c09c2a
