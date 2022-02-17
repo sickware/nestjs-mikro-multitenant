@@ -4,11 +4,11 @@ import { SucursalService } from './sucursal.service';
 @Controller('sucursal')
 export class SucursalController {
     
-    constructor( private readonly sucursalService : SucursalService){}
+    constructor( private readonly sucursalService : SucursalService ){}
 
     @Get()
     getSucursal(@Headers('x-tenant-id') tenant : string){
         return this.sucursalService.getSucursal( tenant );
     }
-    
+
 }

@@ -11,6 +11,6 @@ export class SucursalService {
     ){}
 
     async getSucursal( schema : string ): Promise<Sucursal[]>{
-        return await this.sucursalRepo.findAll({ schema });
+        return await this.sucursalRepo.findAll({ schema, populate : true });
     }
 }
