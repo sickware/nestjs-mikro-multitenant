@@ -13,7 +13,7 @@ export class ClientesService {
     ){}
 
     async getClientes( schema : string ) : Promise<Cliente[]>{
-        return await this.clienteRepo.findAll({ schema });
+        return await this.clienteRepo.findAll({ schema, populate : true });
     }
 
     async saveCliente( data : ClienteDto, schema : string ){

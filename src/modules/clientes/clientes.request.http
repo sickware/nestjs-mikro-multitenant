@@ -1,31 +1,32 @@
 #Se obtienen la informacion del tenant enviado en el header
 ### Obtener clientes de un tenant especifico
 GET http://127.0.0.1:3000/clientes
-x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+x-tenant-id : empresa_d58d894b_54c4_4752_921e_42915146e405
 
 
 ### Guardar informacion en tenant especifico
 #Se obtienen la informacion del tenant enviado en el header
 POST  http://127.0.0.1:3000/clientes
-x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+x-tenant-id : empresa_d58d894b_54c4_4752_921e_42915146e405
 Content-Type: application/json
 
 {
+    "email" : "user6@test.com",
     "telefono" : "1258346592",
     "observacionCliente" : "ninguna prueba 4",
-    "idOrganizacion" : "8a5856de-bbf5-4808-b755-b5e215036fae"
+    "idOrganizacion" : "c6be537e-a53e-40f0-abb3-27d0b621c5d0"
 }
 
 
 #Se obtienen la informacion del tenant enviado en el header
 #El id del cliente es enviado por param
 ### Actualizar informacion por id de cliente en tenant espcifico
-PUT http://127.0.0.1:3000/clientes/0af119c9-7735-4e35-8067-5f7ddcf26e19
-x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+PUT http://127.0.0.1:3000/clientes/a890e2da-1886-47a1-988a-0d6efc1d1953
+x-tenant-id : empresa_d58d894b_54c4_4752_921e_42915146e405
 Content-Type: application/json
 
 {
-    "email" : "update_user_3@gmail.com"
+    "email" : "actualizacion@gmail.com"
 }
 
 
