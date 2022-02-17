@@ -19,14 +19,9 @@ export class TenantsController {
         return this.tenantService.getTenantsEmpresa();
     }
 
-    @Get('/sucursal/:idEmpresa')
-    getTenantsSucursal(@Param('idEmpresa') idSchemaEmpresa : string ){
-        return this.tenantService.getTenantsSucursal( idSchemaEmpresa );
-    }
-
-    @Get('/create')
-    createTenant(){
-        return this.tenantService.createEntity();
+    @Get('/empresa/:id')
+    getSucursalesByEmpresa(@Param('id') idEmpresa : string ){
+        return this.tenantService.getSucursalesByEmpresa( idEmpresa );
     }
 
     @Get('/create/base')

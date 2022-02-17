@@ -8,7 +8,6 @@ import configPublic from '../../mikro-orm.config.public';
 import configEmpresa from '../../mikro-orm.config.empresa';
 import configSucursal from '../../mikro-orm.config.sucursal';
 
-import { getTenantConnection } from '../tenancy/tenancy.util';
 import { sucursalRelations, empresaRelations } from '../../database/relations/relations';
 import { addRelations, injectSchemas } from '../../database/helpers/addRelations';
 import { Relation, Schemas } from '../../database/relations/relation.interface';
@@ -25,69 +24,30 @@ export class TenantsService {
         private readonly or : MikroORM
     ){}
 
+
+    /**
+     * Obtener empresas existentes en el sistema
+     * @returns Array de empresas
+     */
     async getTenantsEmpresa() : Promise<TenantEmpresa[]> {
         return await this.tenantEmpresaRepo.findAll();
     }
 
-    async getTenantsSucursal( schemaEmpresa : string ) : Promise<TenantSucursal[]>{
-        return await this.tenantSucursalRepo.find({ idTenantEmpresa : schemaEmpresa },{ populate : true });
+    /**
+     * Obtener sucursales de una determinada sucursal
+     * @param uuid - id de la empresa a consultar 
+     * @returns - Empresa con su array de sucursales
+     */
+    async getSucursalesByEmpresa( uuid : string ) : Promise<TenantEmpresa> {
+        return await this.tenantEmpresaRepo.findOne({ uuid },{ populate  : [ 'sucursales' ] });
     }
 
-    getConnection(){
-        // const connection : Connection = this.em.getConnection();
-        // console.log(connection);
-        getTenantConnection('tenant_id', this.em );
-        return "ok";        
-    }
 
-    async createEntity(){
-
-        // //Public
-        // const connectionManager = await this.or.connect();
-        // console.log(connectionManager.getConnection().getConnectionOptions());
-
-        // const schemaGenPublic = this.or.getSchemaGenerator();
-        // const resp1 = await schemaGenPublic.createSchema({ schema : 'public' });
-        // // console.log(resp1);
-
-        // await connectionManager.getConnection().close() 
-
-
-        //Empresa    
-        const or2 = await MikroORM.init({
-            ...configEmpresa
-        });
-
-        const connectionManager2 = await or2.connect();
-        console.log(connectionManager2.getConnection().getConnectionOptions());
-
-        const schemaGenEmpresa = or2.getSchemaGenerator();
-        const resp2 = await schemaGenEmpresa.createSchema({ schema : 'empresa8'});
-        // console.log(resp2);
-
-        await connectionManager2.close();
-
-        //Sucursal
-        const or3 = await MikroORM.init({
-            ...configSucursal
-        });
-
-        const schemaGenSucursal = or3.getSchemaGenerator()
-
-        const resp3 = await schemaGenSucursal.createSchema({ schema : 'sucursal8' })
-        // console.log(resp3);
-
-        await or3.close();
-        
-        return 'schemas creados';
-    }
-
-    //TODO
-    //Se debe de crear manualmente con migraciones los schemas base?
-    //Crear el schema public si no existe
+    /**
+     * TODO - mejorar la respuest cuando el schema public es creado
+     * @returns mensaje si el schema se ha creado
+     */
     async makeSchemaBase(){
-        // const schemas = await this.em.execute(`select schema_name as name from information_schema.schemata where schema_name = 'public';`);
-
         const schemas = await this.em.execute(`SELECT * FROM information_schema.tables WHERE table_schema = 'public'`);
         if( schemas.length ) {
             return 'El schema ya existe';
@@ -109,6 +69,11 @@ export class TenantsService {
     }
 
 
+    /**
+     * Crea una nueva empresa (schema y relaciones)
+     * @param name - Nombre de la empresa
+     * @returns 
+     */
     async makeSchemaEmpresa( name : string ){  
         try {
 
@@ -153,7 +118,6 @@ export class TenantsService {
      * TODO
      * -helper para validar si el idTenantEmpresa existe
      * -validar si se creo el schema??
-     * 
      */
     async makeSchemaSucursal( name : string, idTenantEmpresa : string ){
 
@@ -186,28 +150,4 @@ export class TenantsService {
             return 'Error al crear el schema'
         }
     }
-
-    async makeRelations( schemaEmpresa : string, schemaSucursal : string ){
-        const schemas : Schemas = {
-            public : 'public',
-            empresa : schemaEmpresa,
-            sucursal : schemaSucursal
-        }
-
-        const relationsEmpresa : Relation[]  = injectSchemas( empresaRelations, schemas );
-        const relationsSucursal : Relation[]  = injectSchemas( sucursalRelations, schemas );
-
-        const queryEmpresa =  addRelations( relationsEmpresa );
-        const querySucursal = addRelations( relationsSucursal );
-
-        try {
-            const resp = await this.em.execute(queryEmpresa+querySucursal);
-            return resp;
-        } catch (error) {
-            console.log(error);
-            return 'error al crear la relacion, revise si ya existe'
-        }
-    }
-
-
 }

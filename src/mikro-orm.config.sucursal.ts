@@ -2,17 +2,17 @@ import { Options } from '@mikro-orm/core';
 import * as Path from 'path';
 
 const configSucursal : Options = {
-    entities : [ 'dist/database/models/sucursal/*.entity.js' ],
-    entitiesTs : [ 'src/database/models/sucursal/*.entity.ts' ],//podemos especificar las rutas *no es necesario
+    entities : [ 'dist/database/models/structure/sucursal/*.entity.js' ],
+    entitiesTs : [ 'src/database/models/structure/sucursal/*.entity.ts' ],//podemos especificar las rutas *no es necesario
     migrations : {
-        path : 'dist/database/migrations/sucursal',
-        pathTs : Path.join( __dirname, './database/migrations/sucursal'),
+        path : 'dist/database/migrations/structure/sucursal',
+        pathTs : Path.join( __dirname, './database/migrations/structure/sucursal'),
         glob : '!(*.d).{js,ts}',
         // transactional : true,
     },
     seeder : {
-        path : 'src/database/seeders/sucursal',
-        defaultSeeder : 'DatabaseSeeder/sucursal'
+        path : 'src/database/seeders/structure/sucursal',
+        defaultSeeder : 'SucursalSeeder'
     }
 }
 

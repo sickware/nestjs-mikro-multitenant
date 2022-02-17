@@ -27,12 +27,6 @@ GET http://127.0.0.1:3000/tenants/empresa
 Content-Type: application/json
 x-tenant-id: public
 
-
-### Get all tenants sucursal by id empresa
-GET http://127.0.0.1:3000/tenants/sucursal/e5638f71-d52c-486b-b215-cc420803971a
-Content-Type: application/json
-x-tenant-id: public
-
 ### Obtener empresa por id con sus sus sucursales
 GET http://127.0.0.1:3000/tenants/empresa/e5638f71-d52c-486b-b215-cc420803971a
 x-tenant-id: public
