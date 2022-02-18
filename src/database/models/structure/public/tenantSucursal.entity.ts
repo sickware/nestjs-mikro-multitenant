@@ -6,9 +6,12 @@ import { TenantEmpresa } from './tenantEmpresa.entity';
 export class TenantSucursal extends AbstractEntity{
 
     @Property()
-    name : string
-
+    name : string;
+    
+    @Property()
+    schemaName : string;
+    
     @ManyToOne()
-    idTenantEmpresa : TenantEmpresa
+    idTenantEmpresa : TenantEmpresa;
 
 }

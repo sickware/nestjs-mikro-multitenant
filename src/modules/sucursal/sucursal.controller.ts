@@ -8,7 +8,8 @@ export class SucursalController {
 
     @Get()
     getSucursal(@Headers('x-tenant-id') tenant : string){
-        return this.sucursalService.getSucursal( tenant );
+        // return this.sucursalService.getSucursal( tenant );
+        return this.sucursalService.getSucursalQueryBuilder( tenant );
     }
 
 }
