@@ -17,9 +17,12 @@ export class SucursalService {
     }
 
     /**
-     * TODO - obtener los schemas a los que esta relacionado el schema sucursal
+     * TODO - 
+     * 1.obtener los schemas a los que esta relacionado el schema sucursal (empresa,public) 
+     *      el schema se puede obtener directamente desde los middlewares
+     * 2.inyectar los schemas en el script
      */
     async getSucursalQueryBuilder( schema : string ){
-        return await this.em.execute(`SELECT * FROM ${schema}.sucursal `);
+        return await this.em.execute(`SELECT * FROM ${schema}.sucursal`);
     }
 }

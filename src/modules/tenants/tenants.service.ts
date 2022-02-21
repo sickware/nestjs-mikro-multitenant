@@ -150,4 +150,13 @@ export class TenantsService {
             return 'Error al crear el schema'
         }
     }
+
+    /**
+     * Obtener desde el middleware el nombre del schema enviado en los headers,
+     * posteriormente solo se necesitaria obtener las relaciones del dicho schema
+     * y eliminar el parametro 'idSucursal' de la funcion
+    */
+    async getTenantsRelationSucursal( idSucursal : string ) : Promise<TenantSucursal>{
+        return await this.tenantSucursalRepo.findOne({ uuid : idSucursal },{ populate : true });
+    }
 }

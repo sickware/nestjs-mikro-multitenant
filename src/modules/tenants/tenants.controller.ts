@@ -24,6 +24,11 @@ export class TenantsController {
         return this.tenantService.getSucursalesByEmpresa( idEmpresa );
     }
 
+    @Get('/relations/sucursal')
+    getRelationSucursal(@Body('idSucursal') idSucursal : string ){
+        return this.tenantService.getTenantsRelationSucursal( idSucursal );
+    }
+
     @Get('/create/base')
     createSchemaBase(){
         return this.tenantService.makeSchemaBase();
