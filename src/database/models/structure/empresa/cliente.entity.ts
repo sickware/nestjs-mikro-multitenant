@@ -26,5 +26,5 @@ export class Cliente extends AbstractEntity{
     // idOrganizacion! : Organizacion;
 
     @Property({ type : 'uuid' })
-    idOrganizacion : string;
+    idOrganizacionUuid : string;
 }

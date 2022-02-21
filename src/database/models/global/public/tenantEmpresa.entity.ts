@@ -8,9 +8,6 @@ export class TenantEmpresa extends AbstractEntity{
     @Property()
     name : string;
 
-    @Property()
-    schemaName : string;
-
     @OneToMany( () => TenantSucursal, tenantSucursal => tenantSucursal.idTenantEmpresa )
     sucursales = new Collection<TenantSucursal>(this);
     

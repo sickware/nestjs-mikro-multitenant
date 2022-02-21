@@ -6,12 +6,12 @@ POST http://127.0.0.1:3000/tenants/create/empresa
 Content-Type: application/json
 
 {
-    "schema" : "Intek"
+    "schema" : "Motorola52"
 }
 
 
 ### Crear tenant SUCURSAL
-POST http://127.0.0.1:3000/tenants/create/sucursal/e5638f71-d52c-486b-b215-cc420803971a
+POST http://127.0.0.1:3000/tenants/create/sucursal/e8d77b0b-d3ee-4262-b617-1538671478d7
 Content-Type: application/json
 x-tenant-id: public
 

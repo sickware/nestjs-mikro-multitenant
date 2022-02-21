@@ -4,10 +4,10 @@ export abstract class AbstractEntity {
     @PrimaryKey({ type : 'uuid', defaultRaw : 'uuid_generate_v4()' })
     uuid! : string;
     
-    @Property()
+    @Property({ type : 'timestamps' })
     createdAt = new Date();
 
-    @Property({ onUpdate : () => new Date() })
+    @Property({ type : 'timestamps', onUpdate : () => new Date() })
     updatedAt = new Date();
 
 }

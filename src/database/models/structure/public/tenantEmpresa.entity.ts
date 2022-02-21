@@ -7,6 +7,4 @@ export class TenantEmpresa extends AbstractEntity{
     @Property()
     name : string
 
-    @Property()
-    schemaName : string;
 }

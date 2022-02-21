@@ -8,9 +8,6 @@ export class TenantSucursal extends AbstractEntity{
     @Property()
     name : string
 
-    @Property()
-    schemaName : string;
-
     @ManyToOne()
     idTenantEmpresa : TenantEmpresa;
 

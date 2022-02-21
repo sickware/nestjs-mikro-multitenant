@@ -10,7 +10,7 @@ export const empresaRelations : Relation[] = [
         'foreign' : {
             'lvlSchema' : 'empresa',
             'table' : 'cliente',
-            'field' : 'idOrganizacion'
+            'field' : 'idOrganizacionUuid'
         },
         'reference' : {
             'lvlSchema' : 'public',
@@ -25,7 +25,7 @@ export const sucursalRelations : Relation[] = [
         'foreign' : {
             'lvlSchema' : 'sucursal',
             'table' : 'sucursal',
-            'field' : 'idClienteAsignado'
+            'field' : 'idClienteAsignadoUuid'
         },
         'reference' : {
             'lvlSchema' : 'empresa',
@@ -37,7 +37,7 @@ export const sucursalRelations : Relation[] = [
         'foreign' : {
             'lvlSchema' : 'sucursal',
             'table' : 'sucursal',
-            'field' : 'idOrganizacion'
+            'field' : 'idOrganizacionUuid'
         },
         'reference' : {
             'lvlSchema' : 'public',
