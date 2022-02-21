@@ -1,4 +1,4 @@
 ### Nivel tenant sucursal- obteners sucursales
 ### Se envia el tenant de la sucursal
 GET http://127.0.0.1:3000/sucursal
-x-tenant-id : sucursal_11b3df20_778a_49a5_bba0_a93b61ec54f9
+x-tenant-id : sucursal_9494c642_6d94_4b24_8f84_dd76f96be37a

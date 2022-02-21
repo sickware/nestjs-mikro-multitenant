@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 
 import { ClienteDto } from './dto/cliente.dto';
 import { Cliente } from '../../database/models/global/empresa/cliente.entity';
+import { wrap } from '@mikro-orm/core';
 
 @Injectable()
 export class ClientesService {
@@ -13,7 +14,8 @@ export class ClientesService {
     ){}
 
     async getClientes( schema : string ) : Promise<Cliente[]>{
-        return await this.clienteRepo.findAll({ schema, populate : true });
+        const clientes = await this.clienteRepo.findAll({ schema });
+        return clientes;
     }
 
     async saveCliente( data : ClienteDto, schema : string ){
