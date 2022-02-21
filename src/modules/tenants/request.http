@@ -11,7 +11,7 @@ Content-Type: application/json
 
 
 ### Crear tenant SUCURSAL
-POST http://127.0.0.1:3000/tenants/create/sucursal/e8d77b0b-d3ee-4262-b617-1538671478d7
+POST http://127.0.0.1:3000/tenants/create/sucursal/79a5dab6-0bf0-4a3d-a048-d8ce457fcc4f
 Content-Type: application/json
 x-tenant-id: public
 
@@ -28,5 +28,5 @@ Content-Type: application/json
 x-tenant-id: public
 
 ### Obtener empresa por id con sus sus sucursales
-GET http://127.0.0.1:3000/tenants/empresa/d58d894b-54c4-4752-921e-42915146e405
+GET http://127.0.0.1:3000/tenants/empresa/79a5dab6-0bf0-4a3d-a048-d8ce457fcc4f
 x-tenant-id: public
