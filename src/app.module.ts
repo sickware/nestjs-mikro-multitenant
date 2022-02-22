@@ -8,6 +8,7 @@ import { ClientesModule } from './modules/clientes/clientes.module';
 import { OrganizacionModule } from './modules/organizacion/organizacion.module';
 import { TenancyMiddleware, ExistTenantMiddleware } from './modules/tenancy/tenancy.middleware';
 import { SucursalModule } from './modules/sucursal/sucursal.module';
+import { Test2776Module } from './test-2776/test-2776.module';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { SucursalModule } from './modules/sucursal/sucursal.module';
     TenantsModule, 
     TenancyModule, 
     ClientesModule, 
-    OrganizacionModule, SucursalModule,
+    OrganizacionModule, SucursalModule, Test2776Module,
   ],
   controllers: [AppController],
   providers: [AppService],
