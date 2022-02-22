@@ -36,3 +36,35 @@ Content-Type: application/json
 ### Eliminar cliente por id en tenant especifico
 DELETE http://127.0.0.1:3000/clientes/79a10a68-db86-4bd4-9d96-a94a050753d6
 x-tenant-id : empresa_1b96edea_aac9_4e00_8d8a_82e2d7ad3901
+
+
+### Guardar informacion en tenant especifico WRAP
+#Se obtienen la informacion del tenant enviado en el header
+POST  http://127.0.0.1:3000/clientes/wrap
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
+Content-Type: application/json
+
+{
+    "email" : "user_wrap_5_wrap@test.com",
+    "telefono" : "1258346592",
+    "observacionCliente" : "ninguna en wrap",
+    "idOrganizacion" : "76e49ed8-361e-4e95-bba9-2fddb7599d41"
+}
+
+### Actualizar informacion por id de cliente en tenant espcifico WRAP
+#Se obtienen la informacion del tenant enviado en el header
+#El id del cliente es enviado por param
+PUT http://127.0.0.1:3000/clientes/wrap/d5111fea-c006-4d43-9cea-69fa7adbfa02
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
+Content-Type: application/json
+
+{
+    "email" : "actualizacion_wrap_5.2@gmail.com"
+}
+
+
+### Eliminar cliente por id en tenant especifico WRAP
+#Se obtienen la informacion del tenant enviado en el header
+#El id del cliente es enviado por param
+DELETE http://127.0.0.1:3000/clientes/wrap/d5111fea-c006-4d43-9cea-69fa7adbfa02
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14

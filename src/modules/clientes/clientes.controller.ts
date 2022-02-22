@@ -28,5 +28,20 @@ export class ClientesController {
     deleteCliente(@Param('id') uuid : string, @Headers('x-tenant-id') tenant : string){
         return this.clienteService.deleteCliente( uuid, tenant );
     }
+
+    //wrap
+    @Post('/wrap')
+    saveClienteWrap(@Body() body : ClienteDto, @Headers('x-tenant-id') tenant : string ){
+        return this.clienteService.saveClienteWrap( body, tenant );
+    }
     
+    @Put('/wrap/:id')
+    updateClienteWrap(@Param('id') uuid : string, @Body() data : Partial<ClienteDto>, @Headers('x-tenant-id') tenant : string ){
+        return this.clienteService.updateClienteWrap( uuid, data, tenant );
+    }
+
+    @Delete('/wrap/:id')
+    deleteClienteWrap(@Param('id') uuid : string, @Headers('x-tenant-id') tenant : string){
+        return this.clienteService.deleteClienteWrap( uuid, tenant );
+    }
 }
