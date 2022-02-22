@@ -2,20 +2,20 @@
 
 ### Obtener clientes de un tenant especifico
 GET http://127.0.0.1:3000/clientes
-x-tenant-id : empresa_79a5dab6_0bf0_4a3d_a048_d8ce457fcc4f
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
 
 
 ### Guardar informacion en tenant especifico
 #Se obtienen la informacion del tenant enviado en el header
 POST  http://127.0.0.1:3000/clientes
-x-tenant-id : empresa_79a5dab6_0bf0_4a3d_a048_d8ce457fcc4f
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
 Content-Type: application/json
 
 {
-    "email" : "user2@test.com",
+    "email" : "user1@test.com",
     "telefono" : "1258346592",
     "observacionCliente" : "ninguna 1",
-    "idOrganizacion" : "110d8259-2500-4c23-9abe-0c76fbc22106"
+    "idOrganizacion" : "76e49ed8-361e-4e95-bba9-2fddb7599d41"
 }
 
 

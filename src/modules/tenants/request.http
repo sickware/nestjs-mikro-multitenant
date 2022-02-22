@@ -6,12 +6,12 @@ POST http://127.0.0.1:3000/tenants/create/empresa
 Content-Type: application/json
 
 {
-    "schema" : "Motorola52"
+    "schema" : "Intel"
 }
 
 
 ### Crear tenant SUCURSAL
-POST http://127.0.0.1:3000/tenants/create/sucursal/79a5dab6-0bf0-4a3d-a048-d8ce457fcc4f
+POST http://127.0.0.1:3000/tenants/create/sucursal/e580df46-07da-484f-ba82-6bf6c93f6f14
 Content-Type: application/json
 x-tenant-id: public
 
@@ -28,5 +28,5 @@ Content-Type: application/json
 x-tenant-id: public
 
 ### Obtener empresa por id con sus sus sucursales
-GET http://127.0.0.1:3000/tenants/empresa/79a5dab6-0bf0-4a3d-a048-d8ce457fcc4f
+GET http://127.0.0.1:3000/tenants/empresa/e580df46-07da-484f-ba82-6bf6c93f6f14
 x-tenant-id: public
