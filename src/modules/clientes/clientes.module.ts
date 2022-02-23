@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { ClientesController } from './clientes.controller';
 import { ClientesService } from './clientes.service';
 import { Cliente } from '../../database/models/global/empresa/cliente.entity';
+import { Organizacion } from '../../database/models/structure/public/organizacion.entity';
 
 @Module({
   imports : [
-    MikroOrmModule.forFeature([Cliente])
+    MikroOrmModule.forFeature([ Cliente, Organizacion ])
   ],
   controllers: [ClientesController],
   providers: [ClientesService]
