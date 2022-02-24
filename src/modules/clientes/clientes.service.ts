@@ -37,16 +37,21 @@ export class ClientesService {
     async getClientesTest2 ( schema : string ) {
         const clientes = await this.clienteRepo.findAll({ schema });
         
-        const ids = clientes.map( c => {
+        const idsOrg = clientes.map( c => {
             return c.idOrganizacion.uuid
         })
+        const filter = new Set(idsOrg);
+        const result = [...filter];
+        
+        const organizaciones = await this.organizacionRepo.find(result);
 
-        const id = new Set(ids);
+        const clientesOrg = clientes.map( c => {
+            const {...org} = organizaciones.find( org => org.uuid === c.idOrganizacion.uuid)
+            c.idOrganizacion = org;
+            return c;
+        });
 
-        const result = [...id]
-
-        //TODO - filtrar con hash table/
-        return result;        
+        return clientesOrg;        
     }
 
     async saveCliente( data : ClienteDto, schema : string ){
