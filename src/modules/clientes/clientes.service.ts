@@ -34,6 +34,21 @@ export class ClientesService {
         return clientesOrganizacion;
     }
 
+    async getClientesTest2 ( schema : string ) {
+        const clientes = await this.clienteRepo.findAll({ schema });
+        
+        const ids = clientes.map( c => {
+            return c.idOrganizacion.uuid
+        })
+
+        const id = new Set(ids);
+
+        const result = [...id]
+
+        //TODO - filtrar con hash table/
+        return result;        
+    }
+
     async saveCliente( data : ClienteDto, schema : string ){
         const cliente = this.clienteRepo.create( data );
         const resp = await this.clienteRepo.createQueryBuilder().insert( cliente ).withSchema( schema );

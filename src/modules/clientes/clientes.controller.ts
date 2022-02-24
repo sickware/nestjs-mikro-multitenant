@@ -17,7 +17,10 @@ export class ClientesController {
     @Get()
     async getClientes(@Headers('x-tenant-id') tenant : string){
         // return this.clienteService.getClientes( tenant );
-        return this.clienteService.getClientesTest1( tenant );
+
+        // return this.clienteService.getClientesTest1( tenant );
+
+        return this.clienteService.getClientesTest2( tenant );
     }
 
     @Put(':id')
