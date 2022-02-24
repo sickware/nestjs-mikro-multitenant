@@ -1,7 +1,9 @@
 import { Entity, Property } from '@mikro-orm/core';
 import { AbstractEntity } from '../abstract.entity';
 
-@Entity({ schema : '*'})
+const schemaName = global.globalString ? `${global.globalString}.organizacion` : 'dont';
+
+@Entity({ schema : schemaName })
 export class Organizacion extends AbstractEntity {
 
     @Property()

@@ -30,6 +30,7 @@ export class TenantsService {
      * @returns Array de empresas
      */
     async getTenantsEmpresa() : Promise<TenantEmpresa[]> {
+        console.log(global.globalSchema)
         return await this.tenantEmpresaRepo.findAll();
     }
 

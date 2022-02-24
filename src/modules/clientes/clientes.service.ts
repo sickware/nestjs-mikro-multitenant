@@ -3,18 +3,32 @@ import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
 
 import { ClienteDto } from './dto/cliente.dto';
+import { wrap, MikroORM } from '@mikro-orm/core';
+
+export let schemaPublic;
 import { Cliente } from '../../database/models/global/empresa/cliente.entity';
-import { wrap } from '@mikro-orm/core';
+import config from '../../mikro-orm.config'
 
 @Injectable()
 export class ClientesService {
     
     constructor(
-        @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>
+        @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>,
+        private readonly orm : MikroORM
     ){}
 
     async getClientes( schema : string ) : Promise<Cliente[]>{
-        const clientes = await this.clienteRepo.findAll({ schema });
+        console.log(global.globalSchema);
+        global.globalSchema = 'public';
+        console.log(global.globalSchema);
+
+        const or = await MikroORM.init({
+            ...config
+        });
+
+        const rep = or.em.getRepository(Cliente);
+        const clientes = rep.findAll({ schema, populate : true })
+        // const clientes = await this.clienteRepo.findAll({ schema, populate : true });
         return clientes;
     }
 
