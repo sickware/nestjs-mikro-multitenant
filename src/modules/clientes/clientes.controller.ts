@@ -15,8 +15,9 @@ export class ClientesController {
 
     //TODO recuperar nombre del schema desde middleware
     @Get()
-    getClientes(@Headers('x-tenant-id') tenant : string){
-        return this.clienteService.getClientes( tenant );
+    async getClientes(@Headers('x-tenant-id') tenant : string){
+        // return this.clienteService.getClientes( tenant );
+        return this.clienteService.getClientesTest1( tenant );
     }
 
     @Put(':id')

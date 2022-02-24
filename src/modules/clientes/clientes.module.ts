@@ -1,3 +1,4 @@
+import { Organizacion } from './../../database/models/structure/public/organizacion.entity';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Module } from '@nestjs/common';
 import { ClientesController } from './clientes.controller';
@@ -6,7 +7,7 @@ import { Cliente } from '../../database/models/global/empresa/cliente.entity';
 
 @Module({
   imports : [
-    MikroOrmModule.forFeature([Cliente])
+    MikroOrmModule.forFeature([ Cliente, Organizacion ])
   ],
   controllers: [ClientesController],
   providers: [ClientesService]

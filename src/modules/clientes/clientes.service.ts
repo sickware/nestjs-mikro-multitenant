@@ -1,22 +1,37 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
+import { wrap } from '@mikro-orm/core';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { ClienteDto } from './dto/cliente.dto';
 import { Cliente } from '../../database/models/global/empresa/cliente.entity';
-import { wrap } from '@mikro-orm/core';
-import { ClientSessionRequestOptions } from 'http2';
+import { Organizacion } from '../../database/models/structure/public/organizacion.entity';
 
 @Injectable()
 export class ClientesService {
     
     constructor(
-        @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>
+        @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>,
+        @InjectRepository(Organizacion) private readonly organizacionRepo : EntityRepository<Organizacion>
     ){}
 
     async getClientes( schema : string ) : Promise<Cliente[]>{
         const clientes = await this.clienteRepo.findAll({ schema });
         return clientes;
+    }
+
+    async getClientesTest1( schema : string ){
+        const clientes = await this.clienteRepo.findAll({ schema });
+
+        const clientesOrganizacion : Cliente[]  = await Promise.all( clientes.map( async c => {
+            const { ...org } = await this.organizacionRepo.findOne( c.idOrganizacion.uuid );
+            c.idOrganizacion = org;
+            return c;
+        }));
+
+        console.log(clientesOrganizacion)
+
+        return clientesOrganizacion;
     }
 
     async saveCliente( data : ClienteDto, schema : string ){
