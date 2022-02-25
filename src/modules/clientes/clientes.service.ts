@@ -67,8 +67,10 @@ export class ClientesService {
     }
 
     async getClientesTest4( schema : string ){
-        const query = ``;
-        this.em.execute('')
+        const query = `SELECT c.email, c.telefono as correoCliente, o.nombre as organizacion, o.uuid as idOrganizacion FROM ${schema}.cliente as c 
+                        INNER JOIN public.organizacion as o
+                        ON c.id_organizacion_uuid = o.uuid`;
+        return await this.em.execute(query);
     }
 
     async saveCliente( data : ClienteDto, schema : string ){

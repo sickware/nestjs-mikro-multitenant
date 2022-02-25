@@ -12,6 +12,9 @@ x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
 GET http://127.0.0.1:3000/clientes/test3
 x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
 
+###Test4
+Get http://127.0.0.1:3000/clientes/Test4
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
 
 
 ### Guardar informacion en tenant especifico

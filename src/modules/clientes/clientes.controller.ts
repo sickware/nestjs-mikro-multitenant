@@ -29,7 +29,10 @@ export class ClientesController {
         return this.clienteService.getClientesTest3( tenant );
     }
 
-
+    @Get('test4')
+    async getClientes4(@Headers('x-tenant-id') tenant : string ){
+        return this.clienteService.getClientesTest4( tenant );
+    }
 
 
     @Put(':id')
