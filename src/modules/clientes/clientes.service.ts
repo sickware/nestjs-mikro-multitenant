@@ -37,15 +37,19 @@ export class ClientesService {
 
     async getClientesTest2 ( schema : string ) { //2 querys
         const clientes = await this.clienteRepo.findAll({ schema });
+        console.log(clientes);
         
         const idsOrg = clientes.map( c => {
             return c.idOrganizacion.uuid
         })
         const filter = new Set(idsOrg);
         const result = [...filter];
+
+        console.log(result)
         
         const organizaciones = await this.organizacionRepo.find(result);
 
+        console.log(organizaciones)
         const clientesOrg = clientes.map( c => {
             const {...org} = organizaciones.find( org => org.uuid === c.idOrganizacion.uuid)
             c.idOrganizacion = org;
@@ -58,8 +62,13 @@ export class ClientesService {
     async getClientesTest3 ( schema : string ) {//querybuilder
         const knex = this.em.getKnex();
         return await knex(knex.ref('cliente').withSchema( schema ).as('c'))
-                    .leftJoin((knex.ref('organizacion').withSchema('public').as('o')), 'c.id_organizacion_uuid','=', 'o.uuid' )
+                    .join((knex.ref('organizacion').withSchema('public').as('o')), 'c.id_organizacion_uuid','=', 'o.uuid' )
                     .select('*');
+    }
+
+    async getClientesTest4( schema : string ){
+        const query = ``;
+        this.em.execute('')
     }
 
     async saveCliente( data : ClienteDto, schema : string ){
