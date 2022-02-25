@@ -1,5 +1,5 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
-import { EntityRepository } from '@mikro-orm/postgresql';
+import { EntityRepository, EntityManager } from '@mikro-orm/postgresql';
 import { wrap } from '@mikro-orm/core';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
@@ -12,7 +12,8 @@ export class ClientesService {
     
     constructor(
         @InjectRepository(Cliente) private readonly clienteRepo : EntityRepository<Cliente>,
-        @InjectRepository(Organizacion) private readonly organizacionRepo : EntityRepository<Organizacion>
+        @InjectRepository(Organizacion) private readonly organizacionRepo : EntityRepository<Organizacion>,
+        private readonly em : EntityManager
     ){}
 
     async getClientes( schema : string ) : Promise<Cliente[]>{
@@ -20,7 +21,7 @@ export class ClientesService {
         return clientes;
     }
 
-    async getClientesTest1( schema : string ){
+    async getClientesTest1( schema : string ){//query por cada registro
         const clientes = await this.clienteRepo.findAll({ schema });
 
         const clientesOrganizacion : Cliente[]  = await Promise.all( clientes.map( async c => {
@@ -29,12 +30,12 @@ export class ClientesService {
             return c;
         }));
 
-        console.log(clientesOrganizacion)
+        // console.log(clientesOrganizacion)
 
         return clientesOrganizacion;
     }
 
-    async getClientesTest2 ( schema : string ) {
+    async getClientesTest2 ( schema : string ) { //2 querys
         const clientes = await this.clienteRepo.findAll({ schema });
         
         const idsOrg = clientes.map( c => {
@@ -52,6 +53,13 @@ export class ClientesService {
         });
 
         return clientesOrg;        
+    }
+
+    async getClientesTest3 ( schema : string ) {//querybuilder
+        const knex = this.em.getKnex();
+        return await knex(knex.ref('cliente').withSchema( schema ).as('c'))
+                    .leftJoin((knex.ref('organizacion').withSchema('public').as('o')), 'c.id_organizacion_uuid','=', 'o.uuid' )
+                    .select('*');
     }
 
     async saveCliente( data : ClienteDto, schema : string ){

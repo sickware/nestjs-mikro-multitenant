@@ -1,8 +1,17 @@
 #Se obtienen la informacion del tenant enviado en el header
 
 ### Obtener clientes de un tenant especifico
-GET http://127.0.0.1:3000/clientes
+GET http://127.0.0.1:3000/clientes/test1
 x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
+
+###Test2
+GET http://127.0.0.1:3000/clientes/test2
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
+
+###Test3
+GET http://127.0.0.1:3000/clientes/test3
+x-tenant-id : empresa_e580df46_07da_484f_ba82_6bf6c93f6f14
+
 
 
 ### Guardar informacion en tenant especifico
