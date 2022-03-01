@@ -43,7 +43,8 @@ describe('Test2776Service', () => {
       type : 'postgresql',
       user : 'postgres',
       password : '13051997ec',
-      allowGlobalContext : true
+      allowGlobalContext : true,
+      debug : true
     })
 
   });
@@ -53,7 +54,7 @@ describe('Test2776Service', () => {
   });
 
   test('wildcard entities', async () => {
-    const c = new Customer;
+    const c = new Customer('s2');
     c.name = 'e';
     c.company = new Company();
     c.company.name = 'c';

@@ -25,7 +25,7 @@ describe('Test2776Service', () => {
   afterAll( () => orm.close(true) );
 
   test('wildcard entities', async () => {
-    const c = new Customer;
+    const c = new Customer('s2');
     c.name = 'e';
     c.company = new Company();
     c.company.name = 'c';
