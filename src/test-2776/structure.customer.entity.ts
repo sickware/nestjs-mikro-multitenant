@@ -1,5 +1,4 @@
-import { Entity, PrimaryKey, Property, ManyToOne } from '@mikro-orm/core';
-import { Company } from './company.entity';
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
 @Entity({ schema : '*' })
 export class Customer{
