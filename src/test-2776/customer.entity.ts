@@ -1,4 +1,4 @@
-import { Entity, PrimaryKey, Property, ManyToOne } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property, ManyToOne, IdentifiedReference } from '@mikro-orm/core';
 import { Company } from './company.entity';
 
 @Entity({ schema : '*' })
@@ -10,7 +10,7 @@ export class Customer{
     @Property()
     name! : string;
 
-    @ManyToOne({ entity : () => Company })
-    company! : Company;
+    @ManyToOne({ entity : () => Company, wrappedReference : true})
+    company! : IdentifiedReference<Company>;
 
 }
