@@ -10,7 +10,7 @@ export class Customer{
     @Property()
     name! : string;
 
-    @ManyToOne({ entity : () => Company, wrappedReference : true})
-    company! : IdentifiedReference<Company>;
+    @ManyToOne({ entity : () => Company })
+    company! : Company;
 
 }
