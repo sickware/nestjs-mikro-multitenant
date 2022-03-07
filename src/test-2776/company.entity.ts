@@ -1,6 +1,13 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
-@Entity({ schema : '*' })
+let nameSchema = '*';
+
+export const setSchemaCompany = ( schema ) => {
+    nameSchema = schema;
+    console.log('ok',schema,nameSchema);
+}
+
+@Entity({ schema : nameSchema })
 export class Company{
     
     @PrimaryKey()

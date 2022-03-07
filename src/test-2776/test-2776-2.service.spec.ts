@@ -4,7 +4,6 @@ import { Customer } from './customer.entity';
 import { Company as CompanyStructure } from './structure.company.entity';
 import { Customer as CustomerStructure } from './structure.customer.entity';
 
-
 describe('Test2776Service', () => {
   
   let orm  : MikroORM;
@@ -37,14 +36,21 @@ describe('Test2776Service', () => {
     await orm.getSchemaGenerator().updateSchema({ schema : 's2'});
     await orm.em.nativeDelete(Customer,{},{ schema : 's2' });
 
+
+    const company = require('./company.entity');
+    const customer = require('./customer.entity');
+
+    company.setSchemaCompany('s1');
+    customer.setSchemaCustomer('s2');
+    
     orm = await MikroORM.init({
-      entities : [ Company, Customer ],
+      entities : [ company.Company, customer.Customer ],
       dbName : 'mikro_orm_test_gh_2776',
       type : 'postgresql',
       user : 'postgres',
       password : '13051997ec',
       allowGlobalContext : true,
-      debug : true
+      // debug : true
     })
 
   });
@@ -61,13 +67,13 @@ describe('Test2776Service', () => {
     wrap(c).setSchema('s2');
     wrap(c.company).setSchema('s1');
     await orm.em.fork().persistAndFlush(c);
-    const [customer] = await orm.em.getRepository(Customer).findAll({ schema : 's2' });
-    wrap(customer).setSchema('s2');
-    wrap(customer.company).setSchema('s1');
+    const [customer] = await orm.em.getRepository(Customer).findAll();
+    // wrap(customer).setSchema('s2');
+    // wrap(customer.company).setSchema('s1');
     // const resp = await orm.em.populate( customer, true );
     // const resp = await wrap(customer).populated(true);
-    const resp = await wrap(customer).populated(true);
-    console.log(resp);
+    await wrap(customer).populated(true);
+    // console.log(resp);
 
     expect( wrap(customer.company).getSchema() ).toBe('s1');
     expect( wrap(customer).getSchema() ).toBe('s2');
