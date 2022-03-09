@@ -21,8 +21,8 @@ describe('Test2776Service', () => {
     })
 
     await orm.getSchemaGenerator().refreshDatabase();
-    await orm.getSchemaGenerator().updateSchema({ schema : 's2'});
-    await orm.em.nativeDelete(Company,{},{ schema : 's2' });
+    await orm.getSchemaGenerator().updateSchema({ schema : 's1'});
+    await orm.em.nativeDelete(Company,{},{ schema : 's1' });
 
     orm = await MikroORM.init({
       entities : [ CustomerStructure ],
@@ -34,8 +34,8 @@ describe('Test2776Service', () => {
     })
 
     await orm.getSchemaGenerator().refreshDatabase();
-    await orm.getSchemaGenerator().updateSchema({ schema : 's3'});
-    await orm.em.nativeDelete(Customer,{},{ schema : 's3' });
+    await orm.getSchemaGenerator().updateSchema({ schema : 's2'});
+    await orm.em.nativeDelete(Customer,{},{ schema : 's2' });
 
     orm = await MikroORM.init({
       entities : [ Company, Customer ],
@@ -44,7 +44,7 @@ describe('Test2776Service', () => {
       user : 'postgres',
       password : '13051997ec',
       allowGlobalContext : true,
-      debug : true
+      // debug : true
     })
 
   });
@@ -54,18 +54,22 @@ describe('Test2776Service', () => {
   });
 
   test('wildcard entities', async () => {
-    const c = new Customer('s2');
+    const c = new Customer('s1');
     c.name = 'e';
     c.company = new Company();
     c.company.name = 'c';
-    wrap(c).setSchema('s3');
-    wrap(c.company).setSchema('s2');
+    wrap(c).setSchema('s2');
+    wrap(c.company).setSchema('s1');
     await orm.em.fork().persistAndFlush(c);
-    const res = await orm.em.getRepository(Customer).findAll({ populate : true, schema : 's3' });
-    expect(res).toHaveLength(1);
-    expect(wrap(res[0].company).isInitialized()).toBe(true);
-    expect( res[0].name ).toBe('e');
-    expect( res[0].company.name).toBe('c');
+    const customer = await orm.em.getRepository(Customer).findAll({ schema : 's2' });
+    wrap(customer[0].company).setSchema('s1');
+    console.log(wrap(customer[0].company).getSchema());
+    await orm.em.populate(customer[0],['company'],{ schema : 's2' });
+    
+    expect(customer).toHaveLength(1);
+    expect(wrap(customer[0].company).isInitialized()).toBe(true);
+    expect( customer[0].name ).toBe('e');
+    expect( customer[0].company.name).toBe('c');
   })
 
 });
