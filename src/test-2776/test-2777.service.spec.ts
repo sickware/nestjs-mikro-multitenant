@@ -28,7 +28,7 @@ describe('Test', () => {
 
   beforeAll( async () => {
     orm = await MikroORM.init({
-      entities : [ Book, Author ],
+      entities : [ Author, Book ],
       type : 'postgresql',
       dbName : 'mikro_orm_test_gh_2776',
       user : 'postgres',
@@ -49,13 +49,16 @@ describe('Test', () => {
   test('populate already loaded entities', async () => {
     const b = new Book();
     b.name = 'b';
-    b.author = new Author();
-    b.author.name = 'a';
+    const author = new Author();
+    author.name = 'a';
+    b.author = author;
     wrap(b).setSchema('test');
     wrap(b.author).setSchema('test');
     await orm.em.fork().persistAndFlush(b);
     const books = await orm.em.getRepository(Book).findAll({ schema : 'test' });
-    await orm.em.populate(books,['author']);//populating already loaded entities
+    console.log(books)
+    console.log('Here...',wrap(books[0]).getSchema());
+    await orm.em.populate(books,['author'], { schema : 'test' });//populating already loaded entities
 
     expect( wrap(books[0].author).isInitialized() ).toBe(true);
     expect(books[0].name).toBe('b');
