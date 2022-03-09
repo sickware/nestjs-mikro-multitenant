@@ -56,8 +56,9 @@ describe('Test', () => {
     wrap(b.author).setSchema('test');
     await orm.em.fork().persistAndFlush(b);
     const books = await orm.em.getRepository(Book).findAll({ schema : 'test' });
-    console.log(books)
-    console.log('Here...',wrap(books[0]).getSchema());
+    // console.log(books)
+    console.log('Schema book',wrap(books[0]).getSchema());
+    console.log('Schema author:',wrap(books[0].author).getSchema());
     await orm.em.populate(books,['author'], { schema : 'test' });//populating already loaded entities
 
     expect( wrap(books[0].author).isInitialized() ).toBe(true);
