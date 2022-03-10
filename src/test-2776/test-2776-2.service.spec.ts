@@ -1,5 +1,5 @@
 import { MikroORM, wrap } from '@mikro-orm/core';
-import { Company } from './company.entity';
+import { Company, nameSchema } from './company.entity';
 import { Customer } from './customer.entity';
 import { Company as CompanyStructure } from './structure.company.entity';
 import { Customer as CustomerStructure } from './structure.customer.entity';
@@ -42,6 +42,8 @@ describe('Test2776Service', () => {
 
     company.setSchemaCompany('s1');
     customer.setSchemaCustomer('s2');
+
+    console.log('variable schemaName',company.nameSchema)
     
     orm = await MikroORM.init({
       entities : [ company.Company, customer.Customer ],
@@ -67,19 +69,21 @@ describe('Test2776Service', () => {
     wrap(c).setSchema('s2');
     wrap(c.company).setSchema('s1');
     await orm.em.fork().persistAndFlush(c);
-    const [customer] = await orm.em.getRepository(Customer).findAll();
+    console.log('metadata', orm.getMetadata())
+    // console.log('Here.....',orm)
+    const [customerResp] = await orm.em.getRepository(Customer).findAll();
     // wrap(customer).setSchema('s2');
     // wrap(customer.company).setSchema('s1');
     // const resp = await orm.em.populate( customer, true );
     // const resp = await wrap(customer).populated(true);
-    await wrap(customer).populated(true);
+    await wrap(customerResp).populated(true);
     // console.log(resp);
 
-    expect( wrap(customer.company).getSchema() ).toBe('s1');
-    expect( wrap(customer).getSchema() ).toBe('s2');
-    expect(customer.name).toBe('e');
-    expect( wrap(customer.company).isInitialized() ).toBe(true);
-    expect(customer.company.name).toBe('c');
+    expect( wrap(customerResp.company).getSchema() ).toBe('s1');
+    expect( wrap(customerResp).getSchema() ).toBe('s2');
+    expect(customerResp.name).toBe('e');
+    expect( wrap(customerResp.company).isInitialized() ).toBe(true);
+    expect(customerResp.company.name).toBe('c');
     
   })
 

@@ -1,6 +1,6 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/core';
 
-let nameSchema = '*';
+export let nameSchema = '*';
 
 export const setSchemaCompany = ( schema ) => {
     nameSchema = schema;
