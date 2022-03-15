@@ -38,8 +38,8 @@ describe('Test', () => {
     })
 
     await orm.getSchemaGenerator().refreshDatabase();
-    await orm.getSchemaGenerator().updateSchema({ schema : 'test'});
-    await orm.em.nativeDelete(Book,{},{ schema : 'test' });
+    await orm.getSchemaGenerator().updateSchema({ schema : 'test' });
+    await orm.getSchemaGenerator().clearDatabase({ schema : 'test' })
   });
 
   afterAll( () => {
@@ -55,16 +55,16 @@ describe('Test', () => {
     wrap(b).setSchema('test');
     wrap(b.author).setSchema('test');
     await orm.em.fork().persistAndFlush(b);
-    const books = await orm.em.getRepository(Book).findAll({ schema : 'test' });
+    const books = await orm.em.getRepository(Book).findAll({ schema: 'test', populate : true });
 
-    console.log('Schema book',wrap(books[0]).getSchema());
-    console.log('Schema author:',wrap(books[0].author).getSchema());
-    // await orm.em.populate(books,['author'],{ schema: 'test' });
-    // await orm.em.populate(books,['author']);//populating already loaded entities
-    
-    expect( wrap(books[0]).getSchema() ).toBe('test');
-    expect( wrap(books[0]).getSchema() ).toBe('test');
-    expect( wrap(books[0].author).isInitialized() ).toBe(true);
+    expect(wrap(books[0]).getSchema()).toBe('test');
+    expect(wrap(books[0].author).getSchema()).toBe('test');
+    expect(wrap(books[0].author).isInitialized()).toBe(false);
+    await orm.em.populate(books, ['author']);
+
+    expect(wrap(books[0]).getSchema()).toBe('test');
+    expect(wrap(books[0].author).getSchema()).toBe('test');
+    expect(wrap(books[0].author).isInitialized()).toBe(true);
     expect(books[0].name).toBe('b');
     expect(books[0].author.name).toBe('a');
   })
