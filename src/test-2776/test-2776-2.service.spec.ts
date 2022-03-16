@@ -61,15 +61,17 @@ describe('Test2776Service', () => {
     wrap(c).setSchema('s2');
     wrap(c.company).setSchema('s1');
     await orm.em.fork().persistAndFlush(c);
-    const customer = await orm.em.getRepository(Customer).findAll({ schema : 's2' });
-    wrap(customer[0].company).setSchema('s1');
-    console.log(wrap(customer[0].company).getSchema());
-    await orm.em.populate(customer[0],['company'],{ schema : 's2' });
+    const [customer] = await orm.em.getRepository(Customer).findAll({ schema : 's2' });
+    wrap(customer.company).setSchema('s1');
     
-    expect(customer).toHaveLength(1);
-    expect(wrap(customer[0].company).isInitialized()).toBe(true);
-    expect( customer[0].name ).toBe('e');
-    expect( customer[0].company.name).toBe('c');
+    console.log('Schema customer:',wrap(customer).getSchema());
+    console.log('Schema company:',wrap(customer.company).getSchema());
+    await orm.em.populate(customer, true );
+    console.log('Registro',customer)    
+    
+    expect(wrap(customer.company).isInitialized()).toBe(true);
+    expect( customer.name ).toBe('e');
+    expect( customer.company.name).toBe('c');
   })
 
 });

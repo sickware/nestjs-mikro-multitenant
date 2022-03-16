@@ -15,9 +15,9 @@ export class Customer{
     @ManyToOne({ entity : () => Company })
     company! : Company;
 
-    @OnLoad()
-    cargarSchema(){
-        wrap(this.company).setSchema('s2');
-    }
+    // @OnLoad()
+    // cargarSchema(){
+    //     wrap(this.company).setSchema('s1');
+    // }
     
 }
