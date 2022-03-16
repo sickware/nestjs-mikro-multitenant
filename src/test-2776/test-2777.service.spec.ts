@@ -55,7 +55,7 @@ describe('Test', () => {
     wrap(b).setSchema('test');
     wrap(b.author).setSchema('test');
     await orm.em.fork().persistAndFlush(b);
-    const books = await orm.em.getRepository(Book).findAll({ schema: 'test', populate : true });
+    const books = await orm.em.getRepository(Book).findAll({ schema: 'test' });
 
     expect(wrap(books[0]).getSchema()).toBe('test');
     expect(wrap(books[0].author).getSchema()).toBe('test');
